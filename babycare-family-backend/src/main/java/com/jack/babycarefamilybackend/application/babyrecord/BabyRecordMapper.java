@@ -1,0 +1,25 @@
+package com.jack.babycarefamilybackend.application.babyrecord;
+
+import com.jack.babycarefamilybackend.domain.babyrecord.BabyRecord;
+import com.jack.babycarefamilybackend.domain.user.User;
+import com.jack.babycarefamilybackend.domain.user.UserRepository;
+import com.jack.babycarefamilybackend.dto.babycord.BabyRecordDto;
+import com.jack.babycarefamilybackend.dto.babycord.CreateBabyRecordRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@Component
+@RequiredArgsConstructor
+public class BabyRecordMapper {
+    private final UserRepository userRepository;
+
+    public BabyRecord toEntity(CreateBabyRecordRequest request) {
+        User user = userRepository.findById(request.userId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return new BabyRecord(request.content(), user);
+    }
+
+    public BabyRecordDto toDto(BabyRecord record) {
+        return new BabyRecordDto(record.getId(), record.getContent(), record.getUser().getId());
+    }
+}
