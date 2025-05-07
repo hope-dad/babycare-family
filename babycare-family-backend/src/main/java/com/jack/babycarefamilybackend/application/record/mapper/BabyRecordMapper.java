@@ -13,9 +13,8 @@ import org.springframework.stereotype.Component;
 public class BabyRecordMapper {
     private final UserRepository userRepository;
 
-    public BabyRecord toEntity(CreateBabyRecordRequest request) {
-        User user = userRepository.findById(request.userId())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    public BabyRecord toEntity(CreateBabyRecordRequest request, User user) {
+
         return new BabyRecord(request.content(), user);
     }
 

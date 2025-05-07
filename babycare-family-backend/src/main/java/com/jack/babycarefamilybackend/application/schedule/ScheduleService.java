@@ -1,7 +1,12 @@
 package com.jack.babycarefamilybackend.application.schedule;
 
+import com.jack.babycarefamilybackend.application.exception.ResourceNotFoundException;
+import com.jack.babycarefamilybackend.domain.baby.Baby;
+import com.jack.babycarefamilybackend.domain.baby.BabyRepository;
 import com.jack.babycarefamilybackend.domain.schedule.Schedule;
 import com.jack.babycarefamilybackend.domain.schedule.ScheduleRepository;
+import com.jack.babycarefamilybackend.domain.user.User;
+import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.schedule.CreateScheduleRequest;
 import com.jack.babycarefamilybackend.dto.schedule.ScheduleDto;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +21,18 @@ public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
     private final ScheduleMapper scheduleMapper;
+    private final BabyRepository babyRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public ScheduleDto createSchedule(CreateScheduleRequest request) {
-        Schedule schedule = scheduleMapper.toEntity(request);
+
+        Baby baby = babyRepository.findById(request.babyId())
+                .orElseThrow(() -> new ResourceNotFoundException("Baby", request.babyId(), "Baby with ID",request.babyId() + "not found"));
+
+        User user = userRepository.findById(request.userId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", request.userId(), "user with Id", request.userId() + "not found"));
+        Schedule schedule = scheduleMapper.toEntity(request, baby, user);
         return scheduleMapper.toDto(scheduleRepository.save(schedule));
     }
 

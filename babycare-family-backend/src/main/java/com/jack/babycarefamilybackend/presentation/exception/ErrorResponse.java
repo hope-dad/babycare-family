@@ -6,6 +6,7 @@ import org.springframework.validation.FieldError;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Builder
@@ -18,7 +19,8 @@ public class ErrorResponse {
     private final String code; // 네 커스텀 에러 코드
     private final String message; // 에러 상세 메시지
     private final String path; // 요청 경로
-    private final List<FieldError> errors; // @Valid 등 유효성 검사 실패 시 필드별 에러 목록
+    private final String userMessage; // 사용자에게 보여줄 친절한 에러 메시지 (예: "요청하신 가족 그룹을 찾을 수 없습니다.")
+    private final Map<String, Object> details;
 
     @Getter // FieldError 클래스에도 getter 메소드 자동 생성
     @Builder // FieldError 클래스에도 Builder 패턴 적용

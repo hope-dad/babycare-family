@@ -1,9 +1,14 @@
 package com.jack.babycarefamilybackend.application.record.service;
 
 
+import com.jack.babycarefamilybackend.application.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.application.record.mapper.SleepRecordMapper;
+import com.jack.babycarefamilybackend.domain.baby.Baby;
+import com.jack.babycarefamilybackend.domain.baby.BabyRepository;
 import com.jack.babycarefamilybackend.domain.record.SleepRecord;
 import com.jack.babycarefamilybackend.domain.record.repository.SleepRecordRepository;
+import com.jack.babycarefamilybackend.domain.user.User;
+import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.record.dto.SleepRecordDto;
 import com.jack.babycarefamilybackend.dto.record.request.CreateSleepRecordRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +21,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SleepRecordService {
 
-    private final SleepRecordRepository sleepRecordRepository;
     private final SleepRecordMapper sleepRecordMapper;
+    private final BabyRepository babyRepository;
+    private final UserRepository userRepository;
+    private final SleepRecordRepository sleepRecordRepository;
 
     @Transactional
     public SleepRecordDto createSleepRecord(CreateSleepRecordRequest request) {
-        SleepRecord sleepRecord = sleepRecordMapper.toEntity(request);
+
+        Baby baby = babyRepository.findById(request.babyId())
+                .orElseThrow(() -> new ResourceNotFoundException("Baby", request.babyId(), "Baby with ID",request.babyId() + "not found"));
+
+        User user = userRepository.findById(request.userId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", request.userId(), "user with Id", request.userId() + "not found"));
+
+        SleepRecord sleepRecord = sleepRecordMapper.toEntity(request, baby, user);
         SleepRecord savedRecord = sleepRecordRepository.save(sleepRecord);
         return sleepRecordMapper.toDto(savedRecord);
     }

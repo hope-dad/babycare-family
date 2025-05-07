@@ -16,9 +16,7 @@ public class CommentMapper {
 
     private final UserRepository userRepository;
 
-    public Comment toEntity(CreateCommentRequest request) {
-        User user = userRepository.findById(request.userId())
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + request.userId()));
+    public Comment toEntity(CreateCommentRequest request, User user) {
 
         return new Comment(
                 request.content(),

@@ -14,14 +14,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ScheduleMapper {
 
-    private final BabyRepository babyRepository;
-    private final UserRepository userRepository;
 
-    public Schedule toEntity(CreateScheduleRequest request) {
-        Baby baby = babyRepository.findById(request.babyId())
-                .orElseThrow(() -> new IllegalArgumentException("Baby not found"));
-        User user = userRepository.findById(request.userId())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+    public Schedule toEntity(CreateScheduleRequest request, Baby baby, User user) {
+
 
         return new Schedule(
                 baby,

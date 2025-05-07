@@ -17,12 +17,7 @@ public class SleepRecordMapper {
     private final BabyRepository babyRepository;
     private final UserRepository userRepository;
 
-    public SleepRecord toEntity(CreateSleepRecordRequest request) {
-        Baby baby = babyRepository.findById(request.babyId())
-                .orElseThrow(() -> new IllegalArgumentException("Baby not found"));
-
-        User user = userRepository.findById(request.userId())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    public SleepRecord toEntity(CreateSleepRecordRequest request, Baby baby, User user ) {
 
         return new SleepRecord(
                 baby,

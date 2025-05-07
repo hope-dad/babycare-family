@@ -14,14 +14,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MilestoneRecordMapper {
 
-    private final BabyRepository babyRepository;
-    private final UserRepository userRepository;
 
-    public MilestoneRecord toEntity(CreateMilestoneRecordRequest request) {
-        Baby baby = babyRepository.findById(request.babyId())
-                .orElseThrow(() -> new IllegalArgumentException("Baby not found"));
-        User user = userRepository.findById(request.userId())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    public MilestoneRecord toEntity(CreateMilestoneRecordRequest request, Baby baby, User user) {
 
         return new MilestoneRecord(
                 baby,

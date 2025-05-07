@@ -1,7 +1,10 @@
 package com.jack.babycarefamilybackend.application.comment;
 
+import com.jack.babycarefamilybackend.application.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.domain.commant.Comment;
 import com.jack.babycarefamilybackend.domain.commant.CommentRepository;
+import com.jack.babycarefamilybackend.domain.user.User;
+import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.comment.CommentDto;
 import com.jack.babycarefamilybackend.dto.comment.CreateCommentRequest;
 import lombok.RequiredArgsConstructor;
@@ -12,11 +15,17 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CommentService {
-    private final CommentRepository commentRepository;
+
     private final CommentMapper commentMapper;
+    private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
 
     public CommentDto create(CreateCommentRequest request) {
-        Comment comment = commentMapper.toEntity(request);
+        User user = userRepository.findById(request.userId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", request.userId(),
+                        "User with ID", request.userId() + "not found"));
+
+        Comment comment = commentMapper.toEntity(request, user);
         return commentMapper.toDto(commentRepository.save(comment));
     }
 

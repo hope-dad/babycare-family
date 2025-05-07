@@ -14,15 +14,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MedicalRecordMapper {
 
-    private final BabyRepository babyRepository;
-    private final UserRepository userRepository;
 
-    public MedicalRecord toEntity(CreateMedicalRecordRequest request) {
-        Baby baby = babyRepository.findById(request.babyId())
-                .orElseThrow(() -> new IllegalArgumentException("Baby not found"));
 
-        User user = userRepository.findById(request.userId())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    public MedicalRecord toEntity(CreateMedicalRecordRequest request, Baby baby, User user) {
+
 
         return new MedicalRecord(
                 baby,

@@ -17,12 +17,8 @@ public class DiaperRecordMapper {
     private final BabyRepository babyRepository;
     private final UserRepository userRepository;
 
-    public DiaperRecord toEntity(CreateDiaperRecordRequest request) {
-        Baby baby = babyRepository.findById(request.babyId())
-                .orElseThrow(() -> new IllegalArgumentException("Baby not found"));
+    public DiaperRecord toEntity(CreateDiaperRecordRequest request, Baby baby, User user) {
 
-        User user = userRepository.findById(request.userId())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         return new DiaperRecord(
                 baby,

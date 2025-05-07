@@ -14,9 +14,7 @@ public class IllnessRecordMapper {
 
     private final BabyRepository babyRepository;
 
-    public IllnessRecord toEntity(CreateIllnessRecordRequest request) {
-        Baby baby = babyRepository.findById(request.babyId())
-                .orElseThrow(() -> new IllegalArgumentException("Baby not found"));
+    public IllnessRecord toEntity(CreateIllnessRecordRequest request, Baby baby) {
 
         return new IllnessRecord(
                 baby,

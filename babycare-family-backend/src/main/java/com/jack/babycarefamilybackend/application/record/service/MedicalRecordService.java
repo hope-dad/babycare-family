@@ -1,8 +1,13 @@
 package com.jack.babycarefamilybackend.application.record.service;
 
+import com.jack.babycarefamilybackend.application.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.application.record.mapper.MedicalRecordMapper;
+import com.jack.babycarefamilybackend.domain.baby.Baby;
+import com.jack.babycarefamilybackend.domain.baby.BabyRepository;
 import com.jack.babycarefamilybackend.domain.record.MedicalRecord;
 import com.jack.babycarefamilybackend.domain.record.repository.MedicalRecordRepository;
+import com.jack.babycarefamilybackend.domain.user.User;
+import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.record.dto.MedicalRecordDto;
 import com.jack.babycarefamilybackend.dto.record.request.CreateMedicalRecordRequest;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +20,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MedicalRecordService {
 
-    private final MedicalRecordRepository medicalRecordRepository;
     private final MedicalRecordMapper medicalRecordMapper;
+
+    private final BabyRepository babyRepository;
+    private final UserRepository userRepository;
+    private final MedicalRecordRepository medicalRecordRepository;
 
     @Transactional
     public MedicalRecordDto createMedicalRecord(CreateMedicalRecordRequest request) {
-        MedicalRecord record = medicalRecordMapper.toEntity(request);
+        Baby baby = babyRepository.findById(request.babyId())
+                .orElseThrow(() -> new ResourceNotFoundException("Baby", request.babyId(), "Baby with ID",request.babyId() + "not found"));
+
+        User user = userRepository.findById(request.userId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", request.userId(), "user with Id", request.userId() + "not found"));
+
+        MedicalRecord record = medicalRecordMapper.toEntity(request, baby, user);
         MedicalRecord savedRecord = medicalRecordRepository.save(record);
         return medicalRecordMapper.toDto(savedRecord);
     }

@@ -14,15 +14,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GrowthRecordMapper {
 
-    private final BabyRepository babyRepository;
-    private final UserRepository userRepository;
 
-    public GrowthRecord toEntity(CreateGrowthRecordRequest request) {
-        Baby baby = babyRepository.findById(request.babyId())
-                .orElseThrow(() -> new IllegalArgumentException("Baby not found"));
 
-        User user = userRepository.findById(request.userId())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    public GrowthRecord toEntity(CreateGrowthRecordRequest request, Baby baby, User user) {
 
         return new GrowthRecord(
                 baby,

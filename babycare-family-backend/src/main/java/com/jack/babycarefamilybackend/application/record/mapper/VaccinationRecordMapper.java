@@ -14,15 +14,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class VaccinationRecordMapper {
 
-    private final BabyRepository babyRepository;
-    private final UserRepository userRepository;
 
-    public VaccinationRecord toEntity(CreateVaccinationRecordRequest request) {
-        Baby baby = babyRepository.findById(request.babyId())
-                .orElseThrow(() -> new IllegalArgumentException("Baby not found"));
-
-        User user = userRepository.findById(request.userId())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    public VaccinationRecord toEntity(CreateVaccinationRecordRequest request, Baby baby, User user) {
 
         return new VaccinationRecord(
                 baby,

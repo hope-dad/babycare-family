@@ -1,10 +1,15 @@
 package com.jack.babycarefamilybackend.application.record.service;
 
+import com.jack.babycarefamilybackend.application.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.application.record.mapper.FeedingRecordMapper;
+import com.jack.babycarefamilybackend.domain.baby.Baby;
+import com.jack.babycarefamilybackend.domain.baby.BabyRepository;
 import com.jack.babycarefamilybackend.domain.record.FeedingRecord;
 import com.jack.babycarefamilybackend.domain.record.repository.FeedingRecordRepository;
-import com.jack.babycarefamilybackend.dto.record.request.CreateFeedingRecordRequest;
+import com.jack.babycarefamilybackend.domain.user.User;
+import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.record.dto.FeedingRecordDto;
+import com.jack.babycarefamilybackend.dto.record.request.CreateFeedingRecordRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +20,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FeedingRecordService {
 
-    private final FeedingRecordRepository feedingRecordRepository;
     private final FeedingRecordMapper feedingRecordMapper;
+
+    private final BabyRepository babyRepository;
+    private final UserRepository userRepository;
+    private final FeedingRecordRepository feedingRecordRepository;
 
     @Transactional
     public FeedingRecordDto createFeedingRecord(CreateFeedingRecordRequest request) {
-        FeedingRecord feedingRecord = feedingRecordMapper.toEntity(request);
+
+        Baby baby = babyRepository.findById(request.babyId())
+                .orElseThrow(() -> new ResourceNotFoundException("Baby", request.babyId(), "Baby with ID", request.babyId() + "not found"));
+
+        User user = userRepository.findById(request.userId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", request.userId(), "user with Id", request.userId() + "not found"));
+
+        FeedingRecord feedingRecord = feedingRecordMapper.toEntity(request, baby, user);
         FeedingRecord savedRecord = feedingRecordRepository.save(feedingRecord);
         return feedingRecordMapper.toDto(savedRecord);
     }

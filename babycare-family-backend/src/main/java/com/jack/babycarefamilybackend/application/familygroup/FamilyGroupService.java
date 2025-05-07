@@ -1,5 +1,6 @@
 package com.jack.babycarefamilybackend.application.familygroup;
 
+import com.jack.babycarefamilybackend.application.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.domain.familygroup.FamilyGroup;
 import com.jack.babycarefamilybackend.domain.familygroup.FamilyGroupRepository;
 import com.jack.babycarefamilybackend.dto.familygroup.CreateFamilyGroupRequest;
@@ -35,7 +36,8 @@ public class FamilyGroupService {
     @Transactional(readOnly = true)
     public FamilyGroupDto getFamilyGroupById(Long groupId) {
         FamilyGroup familyGroup = familyGroupRepository.findById(groupId)
-                .orElseThrow(() -> new IllegalArgumentException("FamilyGroup not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("FamilyGroup", groupId,
+                        "FamilyGroup with ID"+ groupId + " not found"));
         return familyGroupMapper.toDto(familyGroup);
     }
 }

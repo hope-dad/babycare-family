@@ -1,8 +1,13 @@
 package com.jack.babycarefamilybackend.application.record.service;
 
+import com.jack.babycarefamilybackend.application.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.application.record.mapper.VaccinationRecordMapper;
+import com.jack.babycarefamilybackend.domain.baby.Baby;
+import com.jack.babycarefamilybackend.domain.baby.BabyRepository;
 import com.jack.babycarefamilybackend.domain.record.VaccinationRecord;
 import com.jack.babycarefamilybackend.domain.record.repository.VaccinationRecordRepository;
+import com.jack.babycarefamilybackend.domain.user.User;
+import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.record.dto.VaccinationRecordDto;
 import com.jack.babycarefamilybackend.dto.record.request.CreateVaccinationRecordRequest;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +20,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VaccinationRecordService {
 
-    private final VaccinationRecordRepository vaccinationRecordRepository;
     private final VaccinationRecordMapper vaccinationRecordMapper;
+
+    private final BabyRepository babyRepository;
+    private final UserRepository userRepository;
+    private final VaccinationRecordRepository vaccinationRecordRepository;
 
     @Transactional
     public VaccinationRecordDto createVaccinationRecord(CreateVaccinationRecordRequest request) {
-        VaccinationRecord record = vaccinationRecordMapper.toEntity(request);
+
+        Baby baby = babyRepository.findById(request.babyId())
+                .orElseThrow(() -> new ResourceNotFoundException("Baby", request.babyId(), "Baby with ID",request.babyId() + "not found"));
+        User user = userRepository.findById(request.userId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", request.userId(), "user with Id", request.userId() + "not found"));
+
+        VaccinationRecord record = vaccinationRecordMapper.toEntity(request, baby, user);
         VaccinationRecord savedRecord = vaccinationRecordRepository.save(record);
         return vaccinationRecordMapper.toDto(savedRecord);
     }
