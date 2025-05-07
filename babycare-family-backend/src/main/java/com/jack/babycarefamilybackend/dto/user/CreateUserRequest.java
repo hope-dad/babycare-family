@@ -1,3 +1,10 @@
 package com.jack.babycarefamilybackend.dto.user;
 
-public record CreateUserRequest(String nickname, Long familyGroupId) {}
+import com.jack.babycarefamilybackend.domain.user.UserRole;
+
+public record CreateUserRequest(
+        String name,
+        String email,
+        UserRole role,
+        Long familyGroupId
+) {}

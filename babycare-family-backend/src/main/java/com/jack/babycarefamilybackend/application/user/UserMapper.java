@@ -11,15 +11,28 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class UserMapper {
+
     private final FamilyGroupRepository familyGroupRepository;
 
     public User toEntity(CreateUserRequest request) {
-        FamilyGroup group = familyGroupRepository.findById(request.familyGroupId())
-                .orElseThrow(() -> new IllegalArgumentException("FamilyGroup not found"));
-        return new User(request.nickname(), group);
+        FamilyGroup familyGroup = familyGroupRepository.findById(request.familyGroupId())
+                .orElseThrow(() -> new IllegalArgumentException("Family Group not found"));
+
+        return new User(
+                request.name(),
+                request.email(),
+                request.role(),
+                familyGroup
+        );
     }
 
     public UserDto toDto(User user) {
-        return new UserDto(user.getId(), user.getNickname(), user.getFamilyGroup().getId());
+        return new UserDto(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getRole(),
+                user.getFamilyGroup() != null ? user.getFamilyGroup().getId() : null
+        );
     }
 }

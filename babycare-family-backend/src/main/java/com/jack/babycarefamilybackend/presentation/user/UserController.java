@@ -14,15 +14,21 @@ import java.util.List;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
+
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDto> create(@RequestBody CreateUserRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(request));
+    public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(request));
     }
 
-    @GetMapping
-    public ResponseEntity<List<UserDto>> getAll() {
-        return ResponseEntity.ok(userService.findAll());
+    @GetMapping("/family/{familyGroupId}")
+    public ResponseEntity<List<UserDto>> getUsersByFamilyGroup(@PathVariable Long familyGroupId) {
+        return ResponseEntity.ok(userService.getUsersByFamilyGroup(familyGroupId));
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) {
+        return ResponseEntity.ok(userService.getUserById(userId));
     }
 }

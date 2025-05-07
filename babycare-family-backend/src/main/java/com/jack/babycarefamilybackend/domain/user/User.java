@@ -7,22 +7,28 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "app_user")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nickname;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "family_group_id")
+    private String email;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private FamilyGroup familyGroup;
 
-    public User(String nickname, FamilyGroup familyGroup) {
-        this.nickname = nickname;
+    public User(String name, String email, UserRole role, FamilyGroup familyGroup) {
+        this.name = name;
+        this.email = email;
+        this.role = role;
         this.familyGroup = familyGroup;
     }
 }

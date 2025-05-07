@@ -5,8 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "family_group")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FamilyGroup {
@@ -15,10 +16,12 @@ public class FamilyGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;  // 가족 그룹 이름
+    private String name;
+
+    private LocalDateTime createdAt;
 
     public FamilyGroup(String name) {
         this.name = name;
+        this.createdAt = LocalDateTime.now();
     }
 }

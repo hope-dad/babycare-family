@@ -1,7 +1,7 @@
 package com.jack.babycarefamilybackend.application.comment;
 
-import com.jack.babycarefamilybackend.domain.record.babyrecord.BabyRecord;
-import com.jack.babycarefamilybackend.domain.record.babyrecord.BabyRecordRepository;
+import com.jack.babycarefamilybackend.domain.record.BabyRecord;
+import com.jack.babycarefamilybackend.domain.record.repository.BabyRecordRepository;
 import com.jack.babycarefamilybackend.domain.commant.Comment;
 import com.jack.babycarefamilybackend.domain.user.User;
 import com.jack.babycarefamilybackend.domain.user.UserRepository;
