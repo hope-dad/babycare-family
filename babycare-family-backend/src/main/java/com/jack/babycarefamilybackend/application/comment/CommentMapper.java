@@ -1,41 +1,18 @@
 package com.jack.babycarefamilybackend.application.comment;
 
-import com.jack.babycarefamilybackend.domain.record.BabyRecord;
-import com.jack.babycarefamilybackend.domain.record.repository.BabyRecordRepository;
 import com.jack.babycarefamilybackend.domain.commant.Comment;
 import com.jack.babycarefamilybackend.domain.user.User;
-import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.comment.CommentDto;
 import com.jack.babycarefamilybackend.dto.comment.CreateCommentRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-@RequiredArgsConstructor
-public class CommentMapper {
+@Mapper(componentModel = "spring")
+public interface CommentMapper {
 
-    private final UserRepository userRepository;
+    @Mapping(target = "user", source = "user")
+    Comment toEntity(CreateCommentRequest request, User user);
 
-    public Comment toEntity(CreateCommentRequest request, User user) {
-
-        return new Comment(
-                request.content(),
-                request.recordType(),
-                request.recordId(),
-                request.babyId(),
-                user
-        );
-    }
-
-    public CommentDto toDto(Comment comment) {
-        return new CommentDto(
-                comment.getId(),
-                comment.getContent(),
-                comment.getRecordType(),
-                comment.getRecordId(),
-                comment.getBabyId(),
-                comment.getUser().getId(),
-                comment.getCreatedAt()
-        );
-    }
+    @Mapping(source = "user.id", target = "userId")
+    CommentDto toDto(Comment comment);
 }

@@ -2,23 +2,18 @@ package com.jack.babycarefamilybackend.application.record.mapper;
 
 import com.jack.babycarefamilybackend.domain.record.BabyRecord;
 import com.jack.babycarefamilybackend.domain.user.User;
-import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.record.dto.BabyRecordDto;
 import com.jack.babycarefamilybackend.dto.record.request.CreateBabyRecordRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-@RequiredArgsConstructor
-public class BabyRecordMapper {
-    private final UserRepository userRepository;
+@Mapper(componentModel = "spring")
+public interface BabyRecordMapper {
 
-    public BabyRecord toEntity(CreateBabyRecordRequest request, User user) {
+    @Mapping(target = "user", source = "user")
+    BabyRecord toEntity(CreateBabyRecordRequest request, User user);
 
-        return new BabyRecord(request.content(), user);
-    }
+    @Mapping(source = "user.id", target = "userId")
+    BabyRecordDto toDto(BabyRecord record);
 
-    public BabyRecordDto toDto(BabyRecord record) {
-        return new BabyRecordDto(record.getId(), record.getContent(), record.getUser().getId());
-    }
 }

@@ -1,41 +1,21 @@
 package com.jack.babycarefamilybackend.application.record.mapper;
 
 import com.jack.babycarefamilybackend.domain.baby.Baby;
-import com.jack.babycarefamilybackend.domain.baby.BabyRepository;
 import com.jack.babycarefamilybackend.domain.record.VaccinationRecord;
 import com.jack.babycarefamilybackend.domain.user.User;
-import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.record.dto.VaccinationRecordDto;
 import com.jack.babycarefamilybackend.dto.record.request.CreateVaccinationRecordRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-@RequiredArgsConstructor
-public class VaccinationRecordMapper {
+@Mapper(componentModel = "spring")
+public interface VaccinationRecordMapper {
 
+    @Mapping(target = "baby", source = "baby")
+    @Mapping(target = "user", source = "user")
+    VaccinationRecord toEntity(CreateVaccinationRecordRequest request, Baby baby, User user);
 
-    public VaccinationRecord toEntity(CreateVaccinationRecordRequest request, Baby baby, User user) {
-
-        return new VaccinationRecord(
-                baby,
-                user,
-                request.vaccineName(),
-                request.vaccinationDate(),
-                request.nextVaccinationDate(),
-                request.note()
-        );
-    }
-
-    public VaccinationRecordDto toDto(VaccinationRecord record) {
-        return new VaccinationRecordDto(
-                record.getId(),
-                record.getBaby().getId(),
-                record.getUser().getId(),
-                record.getVaccineName(),
-                record.getVaccinationDate(),
-                record.getNextVaccinationDate(),
-                record.getNote()
-        );
-    }
+    @Mapping(source = "baby.id", target = "babyId")
+    @Mapping(source = "user.id", target = "userId")
+    VaccinationRecordDto toDto(VaccinationRecord record);
 }

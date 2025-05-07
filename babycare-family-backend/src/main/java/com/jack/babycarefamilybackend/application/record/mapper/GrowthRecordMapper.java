@@ -1,44 +1,23 @@
 package com.jack.babycarefamilybackend.application.record.mapper;
 
 import com.jack.babycarefamilybackend.domain.baby.Baby;
-import com.jack.babycarefamilybackend.domain.baby.BabyRepository;
 import com.jack.babycarefamilybackend.domain.record.GrowthRecord;
 import com.jack.babycarefamilybackend.domain.user.User;
-import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.record.dto.GrowthRecordDto;
 import com.jack.babycarefamilybackend.dto.record.request.CreateGrowthRecordRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-@RequiredArgsConstructor
-public class GrowthRecordMapper {
-
+@Mapper(componentModel = "spring")
+public interface GrowthRecordMapper {
 
 
-    public GrowthRecord toEntity(CreateGrowthRecordRequest request, Baby baby, User user) {
 
-        return new GrowthRecord(
-                baby,
-                user,
-                request.height(),
-                request.weight(),
-                request.headCircumference(),
-                request.recordedAt(),
-                request.note()
-        );
-    }
+    @Mapping(target = "baby", source = "baby")
+    @Mapping(target = "user", source = "user")
+    GrowthRecord toEntity(CreateGrowthRecordRequest request, Baby baby, User user);
 
-    public GrowthRecordDto toDto(GrowthRecord growthRecord) {
-        return new GrowthRecordDto(
-                growthRecord.getId(),
-                growthRecord.getBaby().getId(),
-                growthRecord.getUser().getId(),
-                growthRecord.getHeight(),
-                growthRecord.getWeight(),
-                growthRecord.getHeadCircumference(),
-                growthRecord.getRecordedAt(),
-                growthRecord.getNote()
-        );
-    }
+    @Mapping(source = "baby.id", target = "babyId")
+    @Mapping(source = "user.id", target = "userId")
+    GrowthRecordDto toDto(GrowthRecord growthRecord);
 }

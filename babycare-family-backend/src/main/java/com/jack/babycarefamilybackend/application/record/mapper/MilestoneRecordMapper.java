@@ -1,41 +1,22 @@
 package com.jack.babycarefamilybackend.application.record.mapper;
 
 import com.jack.babycarefamilybackend.domain.baby.Baby;
-import com.jack.babycarefamilybackend.domain.baby.BabyRepository;
 import com.jack.babycarefamilybackend.domain.record.MilestoneRecord;
 import com.jack.babycarefamilybackend.domain.user.User;
-import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.record.dto.MilestoneRecordDto;
 import com.jack.babycarefamilybackend.dto.record.request.CreateMilestoneRecordRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
-@Component
-@RequiredArgsConstructor
-public class MilestoneRecordMapper {
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 
-    public MilestoneRecord toEntity(CreateMilestoneRecordRequest request, Baby baby, User user) {
+@Mapper(componentModel = "spring")
+public interface MilestoneRecordMapper {
 
-        return new MilestoneRecord(
-                baby,
-                user,
-                request.eventName(),
-                request.date(),
-                request.note(),
-                request.photoUrl()
-        );
-    }
+    @Mapping(target = "baby", source = "baby")
+    @Mapping(target = "user", source = "user")
+    MilestoneRecord toEntity(CreateMilestoneRecordRequest request, Baby baby, User user);
 
-    public MilestoneRecordDto toDto(MilestoneRecord record) {
-        return new MilestoneRecordDto(
-                record.getId(),
-                record.getBaby().getId(),
-                record.getUser().getId(),
-                record.getEventName(),
-                record.getDate(),
-                record.getNote(),
-                record.getPhotoUrl()
-        );
-    }
+    @Mapping(source = "baby.id", target = "babyId")
+    @Mapping(source = "user.id", target = "userId")
+    MilestoneRecordDto toDto(MilestoneRecord record);
 }

@@ -5,27 +5,18 @@ import com.jack.babycarefamilybackend.domain.checklist.Checklist;
 import com.jack.babycarefamilybackend.domain.user.User;
 import com.jack.babycarefamilybackend.dto.checklist.ChecklistDto;
 import com.jack.babycarefamilybackend.dto.checklist.CreateChecklistRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-@RequiredArgsConstructor
-public class ChecklistMapper {
+@Mapper(componentModel = "spring") // Spring Bean으로 자동 등록!
+public interface ChecklistMapper {
 
+    @Mapping(target = "baby", source = "baby")
+    @Mapping(target = "user", source = "user")
+    Checklist toEntity(CreateChecklistRequest request, Baby baby, User user);
 
-    public Checklist toEntity(CreateChecklistRequest request, Baby baby, User user) {
-        return new Checklist(baby, user, request.content());
-    }
+    @Mapping(source = "baby.id", target = "babyId")
+    @Mapping(source = "user.id", target = "userId")
+    ChecklistDto toDto(Checklist checklist);
 
-    public ChecklistDto toDto(Checklist checklist) {
-        return new ChecklistDto(
-                checklist.getId(),
-                checklist.getBaby().getId(),
-                checklist.getUser().getId(),
-                checklist.getContent(),
-                checklist.isCompleted(),
-                checklist.getCreatedAt(),
-                checklist.getCompletedAt()
-        );
-    }
 }

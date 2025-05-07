@@ -1,41 +1,21 @@
 package com.jack.babycarefamilybackend.application.record.mapper;
 
 import com.jack.babycarefamilybackend.domain.baby.Baby;
-import com.jack.babycarefamilybackend.domain.baby.BabyRepository;
 import com.jack.babycarefamilybackend.domain.record.SleepRecord;
 import com.jack.babycarefamilybackend.domain.user.User;
-import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.record.dto.SleepRecordDto;
 import com.jack.babycarefamilybackend.dto.record.request.CreateSleepRecordRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-@RequiredArgsConstructor
-public class SleepRecordMapper {
+@Mapper(componentModel = "spring")
+public interface SleepRecordMapper {
 
-    private final BabyRepository babyRepository;
-    private final UserRepository userRepository;
+    @Mapping(target = "baby", source = "baby")
+    @Mapping(target = "user", source = "user")
+    SleepRecord toEntity(CreateSleepRecordRequest request, Baby baby, User user);
 
-    public SleepRecord toEntity(CreateSleepRecordRequest request, Baby baby, User user ) {
-
-        return new SleepRecord(
-                baby,
-                user,
-                request.sleepStart(),
-                request.sleepEnd(),
-                request.note()
-        );
-    }
-
-    public SleepRecordDto toDto(SleepRecord sleepRecord) {
-        return new SleepRecordDto(
-                sleepRecord.getId(),
-                sleepRecord.getBaby().getId(),
-                sleepRecord.getUser().getId(),
-                sleepRecord.getSleepStart(),
-                sleepRecord.getSleepEnd(),
-                sleepRecord.getNote()
-        );
-    }
+    @Mapping(source = "baby.id", target = "babyId")
+    @Mapping(source = "user.id", target = "userId")
+    SleepRecordDto toDto(SleepRecord sleepRecord);
 }

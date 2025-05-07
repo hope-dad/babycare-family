@@ -4,24 +4,16 @@ import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.familygroup.FamilyGroup;
 import com.jack.babycarefamilybackend.dto.baby.BabyDto;
 import com.jack.babycarefamilybackend.dto.baby.CreateBabyRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-@RequiredArgsConstructor
-public class BabyMapper {
+@Mapper(componentModel = "spring")
+public interface BabyMapper {
 
-    public Baby toEntity(CreateBabyRequest request, FamilyGroup familyGroup) {
-        return new Baby(request.name(), request.birthDate(), request.gender(), familyGroup);
-    }
+    @Mapping(target = "familyGroup", source = "familyGroup")
+    Baby toEntity(CreateBabyRequest request, FamilyGroup familyGroup);
 
-    public BabyDto toDto(Baby baby) {
-        return new BabyDto(
-                baby.getId(),
-                baby.getName(),
-                baby.getBirthDate(),
-                baby.getGender(),
-                baby.getFamilyGroup().getId()
-        );
-    }
+    @Mapping(source = "familyGroup.id", target = "familyGroupId")
+    BabyDto toDto(Baby baby);
+
 }

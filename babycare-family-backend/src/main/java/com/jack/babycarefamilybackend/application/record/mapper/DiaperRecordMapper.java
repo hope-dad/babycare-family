@@ -1,42 +1,22 @@
 package com.jack.babycarefamilybackend.application.record.mapper;
 
 import com.jack.babycarefamilybackend.domain.baby.Baby;
-import com.jack.babycarefamilybackend.domain.baby.BabyRepository;
 import com.jack.babycarefamilybackend.domain.record.DiaperRecord;
 import com.jack.babycarefamilybackend.domain.user.User;
-import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.record.dto.DiaperRecordDto;
 import com.jack.babycarefamilybackend.dto.record.request.CreateDiaperRecordRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-@RequiredArgsConstructor
-public class DiaperRecordMapper {
-
-    private final BabyRepository babyRepository;
-    private final UserRepository userRepository;
-
-    public DiaperRecord toEntity(CreateDiaperRecordRequest request, Baby baby, User user) {
+@Mapper(componentModel = "spring")
+public interface DiaperRecordMapper {
 
 
-        return new DiaperRecord(
-                baby,
-                user,
-                request.type(),
-                request.note(),
-                request.changedAt()
-        );
-    }
+    @Mapping(target = "baby", source = "baby")
+    @Mapping(target = "user", source = "user")
+    DiaperRecord toEntity(CreateDiaperRecordRequest request, Baby baby, User user);
 
-    public DiaperRecordDto toDto(DiaperRecord diaperRecord) {
-        return new DiaperRecordDto(
-                diaperRecord.getId(),
-                diaperRecord.getBaby().getId(),
-                diaperRecord.getUser().getId(),
-                diaperRecord.getType(),
-                diaperRecord.getNote(),
-                diaperRecord.getChangedAt()
-        );
-    }
+    @Mapping(source = "baby.id", target = "babyId")
+    @Mapping(source = "user.id", target = "userId")
+    DiaperRecordDto toDto(DiaperRecord diaperRecord);
 }

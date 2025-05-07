@@ -1,6 +1,7 @@
 package com.jack.babycarefamilybackend.dto.checklist;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record ChecklistDto(
@@ -10,5 +11,9 @@ public record ChecklistDto(
         String content,
         boolean isCompleted,
         LocalDateTime createdAt,
-        LocalDateTime completedAt
+        LocalDateTime completedAt,
+        LocalDate dueDate,
+        Integer priority,
+        String category,
+        String notes
 ) {}
