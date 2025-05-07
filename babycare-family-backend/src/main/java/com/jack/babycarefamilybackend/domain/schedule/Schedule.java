@@ -33,13 +33,5 @@ public class Schedule {
     private String description;
     private LocalDateTime createdAt;
 
-    public Schedule(Baby baby, User user, String title, LocalDateTime startTime, LocalDateTime endTime, String description) {
-        this.baby = baby;
-        this.user = user;
-        this.title = title;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.description = description;
-        this.createdAt = LocalDateTime.now();
-    }
+
 }

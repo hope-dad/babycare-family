@@ -34,14 +34,5 @@ public class MedicalRecord {
     private String doctorName;
     private String note;
 
-    public MedicalRecord(Baby baby, User user, String diagnosis, String treatment, String prescribedMedication, LocalDateTime visitDate, String doctorName, String note) {
-        this.baby = baby;
-        this.user = user;
-        this.diagnosis = diagnosis;
-        this.treatment = treatment;
-        this.prescribedMedication = prescribedMedication;
-        this.visitDate = visitDate;
-        this.doctorName = doctorName;
-        this.note = note;
-    }
+
 }

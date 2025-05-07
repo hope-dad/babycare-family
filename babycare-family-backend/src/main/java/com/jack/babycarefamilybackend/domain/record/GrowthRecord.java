@@ -33,13 +33,4 @@ public class GrowthRecord {
     private LocalDateTime recordedAt;
     private String note;
 
-    public GrowthRecord(Baby baby, User user, Double height, Double weight, Double headCircumference, LocalDateTime recordedAt, String note) {
-        this.baby = baby;
-        this.user = user;
-        this.height = height;
-        this.weight = weight;
-        this.headCircumference = headCircumference;
-        this.recordedAt = recordedAt;
-        this.note = note;
-    }
 }

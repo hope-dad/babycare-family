@@ -39,18 +39,6 @@ public class Checklist {
     private String category;
     private String notes;
 
-    public Checklist(Baby baby, User user, String content, LocalDate dueDate, Integer priority, String category, String notes) {
-        this.baby = baby;
-        this.user = user;
-        this.content = content;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.category = category;
-        this.notes = notes;
-        this.isCompleted = false;
-        this.createdAt = LocalDateTime.now();
-        this.completedAt = null; // 초기에는 완료 안 됐으니 null
-    }
 
     // 기존 메소드는 그대로 두고
     public void markCompleted() {

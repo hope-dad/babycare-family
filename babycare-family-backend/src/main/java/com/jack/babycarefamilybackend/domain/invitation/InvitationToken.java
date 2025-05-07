@@ -23,10 +23,5 @@ public class InvitationToken {
     @ManyToOne(fetch = FetchType.LAZY)
     private FamilyGroup familyGroup;
 
-    public InvitationToken(String email, String token, String status, FamilyGroup familyGroup) {
-        this.email = email;
-        this.token = token;
-        this.status = status;
-        this.familyGroup = familyGroup;
-    }
+
 }

@@ -29,11 +29,5 @@ public class DiaperRecord {
     private String note;
     private LocalDateTime changedAt;
 
-    public DiaperRecord(Baby baby, User user, String type, String note, LocalDateTime changedAt) {
-        this.baby = baby;
-        this.user = user;
-        this.type = type;
-        this.note = note;
-        this.changedAt = changedAt;
-    }
+
 }

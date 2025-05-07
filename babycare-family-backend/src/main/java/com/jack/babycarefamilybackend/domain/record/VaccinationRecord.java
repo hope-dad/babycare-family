@@ -32,12 +32,5 @@ public class VaccinationRecord {
     private LocalDateTime nextVaccinationDate;
     private String note;
 
-    public VaccinationRecord(Baby baby, User user, String vaccineName, LocalDateTime vaccinationDate, LocalDateTime nextVaccinationDate, String note) {
-        this.baby = baby;
-        this.user = user;
-        this.vaccineName = vaccineName;
-        this.vaccinationDate = vaccinationDate;
-        this.nextVaccinationDate = nextVaccinationDate;
-        this.note = note;
-    }
+
 }

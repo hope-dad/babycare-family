@@ -21,8 +21,5 @@ public class BabyRecord {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public BabyRecord(String content, User user) {
-        this.content = content;
-        this.user = user;
-    }
+
 }

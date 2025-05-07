@@ -32,12 +32,5 @@ public class Comment {
 
     private LocalDateTime createdAt;
 
-    public Comment(String content, String recordType, Long recordId, Long babyId, User user) {
-        this.content = content;
-        this.recordType = recordType;
-        this.recordId = recordId;
-        this.babyId = babyId;
-        this.user = user;
-        this.createdAt = LocalDateTime.now();
-    }
+
 }

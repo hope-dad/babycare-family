@@ -25,11 +25,4 @@ public class User {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private FamilyGroup familyGroup;
-
-    public User(String name, String email, UserRole role, FamilyGroup familyGroup) {
-        this.name = name;
-        this.email = email;
-        this.role = role;
-        this.familyGroup = familyGroup;
-    }
 }

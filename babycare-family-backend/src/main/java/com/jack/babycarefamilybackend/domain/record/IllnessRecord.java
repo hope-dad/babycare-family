@@ -27,11 +27,4 @@ public class IllnessRecord {
     private LocalDate endDate;
     private String note;
 
-    public IllnessRecord(Baby baby, String symptom, LocalDate startDate, LocalDate endDate, String note) {
-        this.baby = baby;
-        this.symptom = symptom;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.note = note;
-    }
 }

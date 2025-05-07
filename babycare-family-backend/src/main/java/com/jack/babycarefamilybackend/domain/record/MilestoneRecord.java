@@ -31,13 +31,4 @@ public class MilestoneRecord {
     private LocalDate date;
     private String note;
     private String photoUrl;
-
-    public MilestoneRecord(Baby baby, User user, String eventName, LocalDate date, String note, String photoUrl) {
-        this.baby = baby;
-        this.user = user;
-        this.eventName = eventName;
-        this.date = date;
-        this.note = note;
-        this.photoUrl = photoUrl;
-    }
 }

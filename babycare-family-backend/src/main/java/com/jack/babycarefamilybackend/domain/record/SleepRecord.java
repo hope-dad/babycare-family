@@ -31,11 +31,4 @@ public class SleepRecord {
     private LocalDateTime sleepEnd;
     private String note;
 
-    public SleepRecord(Baby baby, User user, LocalDateTime sleepStart, LocalDateTime sleepEnd, String note) {
-        this.baby = baby;
-        this.user = user;
-        this.sleepStart = sleepStart;
-        this.sleepEnd = sleepEnd;
-        this.note = note;
-    }
 }

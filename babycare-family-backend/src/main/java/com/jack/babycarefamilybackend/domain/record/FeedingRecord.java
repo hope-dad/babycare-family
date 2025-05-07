@@ -29,11 +29,4 @@ public class FeedingRecord {
     private Double amount;  // ml
     private LocalDateTime fedAt;
 
-    public FeedingRecord(Baby baby, User user, String type, Double amount, LocalDateTime fedAt) {
-        this.baby = baby;
-        this.user = user;
-        this.type = type;
-        this.amount = amount;
-        this.fedAt = fedAt;
-    }
 }

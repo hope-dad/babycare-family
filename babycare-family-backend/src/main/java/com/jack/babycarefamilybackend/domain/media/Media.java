@@ -25,11 +25,5 @@ public class Media {
     @ManyToOne(fetch = FetchType.LAZY)
     private User uploadedBy;
 
-    public Media(String url, String type, String recordType, Long recordId, User uploadedBy) {
-        this.url = url;
-        this.type = type;
-        this.recordType = recordType;
-        this.recordId = recordId;
-        this.uploadedBy = uploadedBy;
-    }
+
 }

@@ -33,13 +33,5 @@ public class HospitalVisitRecord {
     private String diagnosis;
     private String prescribedMedication;
 
-    public HospitalVisitRecord(Baby baby, User user, LocalDateTime visitDate, String hospitalName, String symptoms, String diagnosis, String prescribedMedication) {
-        this.baby = baby;
-        this.user = user;
-        this.visitDate = visitDate;
-        this.hospitalName = hospitalName;
-        this.symptoms = symptoms;
-        this.diagnosis = diagnosis;
-        this.prescribedMedication = prescribedMedication;
-    }
+
 }

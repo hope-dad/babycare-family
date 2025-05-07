@@ -21,8 +21,5 @@ public class FamilyGroup {
 
     private LocalDateTime createdAt;
 
-    public FamilyGroup(String name) {
-        this.name = name;
-        this.createdAt = LocalDateTime.now();
-    }
+
 }
