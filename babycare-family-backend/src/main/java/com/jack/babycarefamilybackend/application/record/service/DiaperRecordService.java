@@ -2,6 +2,7 @@ package com.jack.babycarefamilybackend.application.record.service;
 
 import com.jack.babycarefamilybackend.application.record.mapper.DiaperRecordMapper;
 import com.jack.babycarefamilybackend.domain.record.DiaperRecord;
+import com.jack.babycarefamilybackend.domain.record.repository.DiaperRecordRepository;
 import com.jack.babycarefamilybackend.dto.record.dto.DiaperRecordDto;
 import com.jack.babycarefamilybackend.dto.record.request.CreateDiaperRecordRequest;
 import lombok.RequiredArgsConstructor;
