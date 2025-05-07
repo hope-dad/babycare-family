@@ -1,4 +1,4 @@
-package com.jack.babycarefamilybackend.domain.babyrecord;
+package com.jack.babycarefamilybackend.domain.record.babyrecord;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

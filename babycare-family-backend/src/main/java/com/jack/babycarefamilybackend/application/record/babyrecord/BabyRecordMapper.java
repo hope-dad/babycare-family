@@ -1,6 +1,6 @@
-package com.jack.babycarefamilybackend.application.babyrecord;
+package com.jack.babycarefamilybackend.application.record.babyrecord;
 
-import com.jack.babycarefamilybackend.domain.babyrecord.BabyRecord;
+import com.jack.babycarefamilybackend.domain.record.babyrecord.BabyRecord;
 import com.jack.babycarefamilybackend.domain.user.User;
 import com.jack.babycarefamilybackend.domain.user.UserRepository;
 import com.jack.babycarefamilybackend.dto.babycord.BabyRecordDto;

@@ -1,4 +1,3 @@
 package com.jack.babycarefamilybackend.dto.comment;
 
-public class CreateCommentRequest {
-}
+public record CreateCommentRequest(String text, Long babyRecordId, Long userId) {}

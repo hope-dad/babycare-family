@@ -1,6 +1,6 @@
 package com.jack.babycarefamilybackend.domain.commant;
 
-import com.jack.babycarefamilybackend.domain.babyrecord.BabyRecord;
+import com.jack.babycarefamilybackend.domain.record.babyrecord.BabyRecord;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

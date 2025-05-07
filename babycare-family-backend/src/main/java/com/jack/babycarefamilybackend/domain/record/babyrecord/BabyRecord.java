@@ -1,4 +1,4 @@
-package com.jack.babycarefamilybackend.domain.babyrecord;
+package com.jack.babycarefamilybackend.domain.record.babyrecord;
 
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
