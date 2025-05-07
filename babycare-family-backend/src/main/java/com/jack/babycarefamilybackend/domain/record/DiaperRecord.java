@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Table(name = "diaper_record")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class DiaperRecord {
 

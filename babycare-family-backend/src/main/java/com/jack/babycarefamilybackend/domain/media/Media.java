@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Table(name = "media")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Media {
 

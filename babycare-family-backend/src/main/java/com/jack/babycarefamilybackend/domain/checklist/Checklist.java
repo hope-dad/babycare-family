@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Table(name = "checklist")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Checklist {
 

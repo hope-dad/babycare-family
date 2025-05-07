@@ -1,5 +1,7 @@
 package com.jack.babycarefamilybackend.dto.record.request;
 
+import java.time.LocalDateTime;
+
 public record CreateGrowthRecordRequest(
         Long babyId,
         Long userId,

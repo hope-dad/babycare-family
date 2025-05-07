@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Table(name = "baby_record")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BabyRecord {
     @Id

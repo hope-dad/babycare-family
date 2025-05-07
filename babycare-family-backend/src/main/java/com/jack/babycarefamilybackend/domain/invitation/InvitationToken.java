@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Table(name = "invitation_token")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class InvitationToken {
 

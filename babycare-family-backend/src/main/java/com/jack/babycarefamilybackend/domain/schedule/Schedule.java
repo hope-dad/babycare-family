@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Table(name = "schedule")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Schedule {
 

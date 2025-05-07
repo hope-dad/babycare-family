@@ -1,6 +1,14 @@
 package com.jack.babycarefamilybackend.presentation.record;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.jack.babycarefamilybackend.application.record.service.VaccinationRecordService;
+import com.jack.babycarefamilybackend.dto.record.dto.VaccinationRecordDto;
+import com.jack.babycarefamilybackend.dto.record.request.CreateVaccinationRecordRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/vaccination-records")

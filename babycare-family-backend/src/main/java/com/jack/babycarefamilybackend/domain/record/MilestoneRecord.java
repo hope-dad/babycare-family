@@ -11,6 +11,7 @@ import java.time.LocalDate;
 
 @Entity
 @Getter
+@Table(name = "milestone_record")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MilestoneRecord {
 

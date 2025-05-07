@@ -1,6 +1,14 @@
 package com.jack.babycarefamilybackend.presentation.record;
 
-import org.springframework.web.bind.annotation.PostMapping;
+import com.jack.babycarefamilybackend.application.record.service.GrowthRecordService;
+import com.jack.babycarefamilybackend.dto.record.dto.GrowthRecordDto;
+import com.jack.babycarefamilybackend.dto.record.request.CreateGrowthRecordRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/growth-records")

@@ -1,7 +1,15 @@
 package com.jack.babycarefamilybackend.application.record.service;
 
 import com.jack.babycarefamilybackend.application.record.mapper.GrowthRecordMapper;
+import com.jack.babycarefamilybackend.domain.record.GrowthRecord;
+import com.jack.babycarefamilybackend.domain.record.repository.GrowthRecordRepository;
+import com.jack.babycarefamilybackend.dto.record.dto.GrowthRecordDto;
 import com.jack.babycarefamilybackend.dto.record.request.CreateGrowthRecordRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor

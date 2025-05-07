@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Table(name = "family_group")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FamilyGroup {
 

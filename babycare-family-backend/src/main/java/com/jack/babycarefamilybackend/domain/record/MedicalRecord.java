@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Table(name = "medical_record")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MedicalRecord {
 

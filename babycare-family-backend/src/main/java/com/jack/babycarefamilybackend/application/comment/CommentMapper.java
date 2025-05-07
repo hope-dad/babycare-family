@@ -15,24 +15,29 @@ import org.springframework.stereotype.Component;
 public class CommentMapper {
 
     private final UserRepository userRepository;
-    private final BabyRecordRepository babyRecordRepository;
 
     public Comment toEntity(CreateCommentRequest request) {
         User user = userRepository.findById(request.userId())
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + request.userId()));
 
-        BabyRecord record = babyRecordRepository.findById(request.babyRecordId())
-                .orElseThrow(() -> new IllegalArgumentException("BabyRecord not found with id: " + request.babyRecordId()));
-
-        return new Comment(request.text(), record, user);
+        return new Comment(
+                request.content(),
+                request.recordType(),
+                request.recordId(),
+                request.babyId(),
+                user
+        );
     }
 
     public CommentDto toDto(Comment comment) {
         return new CommentDto(
                 comment.getId(),
-                comment.getText(),
-                comment.getBabyRecord().getId(),
-                comment.getUser().getId()
+                comment.getContent(),
+                comment.getRecordType(),
+                comment.getRecordId(),
+                comment.getBabyId(),
+                comment.getUser().getId(),
+                comment.getCreatedAt()
         );
     }
 }

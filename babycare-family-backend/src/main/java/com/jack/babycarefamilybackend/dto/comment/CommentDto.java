@@ -1,3 +1,13 @@
 package com.jack.babycarefamilybackend.dto.comment;
 
-public record CommentDto(Long id, String text, Long babyRecordId, Long userId) {}
+import java.time.LocalDateTime;
+
+public record CommentDto(
+        Long id,
+        String content,
+        String recordType,
+        Long recordId,
+        Long babyId,
+        Long userId,
+        LocalDateTime createdAt
+) {}

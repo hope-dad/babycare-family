@@ -1,5 +1,7 @@
 package com.jack.babycarefamilybackend.dto.record.dto;
 
+import java.time.LocalDateTime;
+
 public record MedicalRecordDto(
         Long id,
         Long babyId,
