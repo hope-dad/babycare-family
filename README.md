@@ -23,8 +23,8 @@ Backend는 Spring Boot를 기반으로 구현되었으며, 주요 도메인은 �
 
 ## 🛠️ **기술 스택**
 
-- Java 17
-- Spring Boot 3.x
+- Java 21
+- Spring Boot 3.4
 - Spring Security
 - JWT Authentication
 - JPA/Hibernate
