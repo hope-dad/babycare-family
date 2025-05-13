@@ -3,17 +3,17 @@ package com.jack.babycarefamilybackend.domain.record;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "vaccination_record")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class VaccinationRecord {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,4 +33,13 @@ public class VaccinationRecord {
     private String note;
 
 
+
+    public VaccinationRecord(Baby baby1, User user1, String vaccineName, LocalDateTime vaccinationDate, LocalDateTime nextVaccinationDate, String note) {
+        this.baby = baby1;
+        this.user = user1;
+        this.vaccineName = vaccineName;
+        this.vaccinationDate = vaccinationDate;
+        this.nextVaccinationDate = nextVaccinationDate;
+        this.note = note;
+    }
 }

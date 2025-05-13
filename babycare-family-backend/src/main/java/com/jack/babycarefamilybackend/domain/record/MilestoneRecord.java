@@ -3,14 +3,13 @@ package com.jack.babycarefamilybackend.domain.record;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "milestone_record")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MilestoneRecord {

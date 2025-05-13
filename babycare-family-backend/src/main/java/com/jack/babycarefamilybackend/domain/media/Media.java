@@ -2,12 +2,10 @@ package com.jack.babycarefamilybackend.domain.media;
 
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Getter
+@Getter @Setter
 @Table(name = "media")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Media {

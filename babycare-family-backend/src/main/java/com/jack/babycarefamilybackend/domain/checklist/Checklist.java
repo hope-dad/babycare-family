@@ -3,9 +3,7 @@ package com.jack.babycarefamilybackend.domain.checklist;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,7 +28,7 @@ public class Checklist {
     private User user;
 
     private String content;
-    private boolean isCompleted;
+    private boolean completed;
     private LocalDateTime createdAt;
     private LocalDateTime completedAt;
 
@@ -40,15 +38,51 @@ public class Checklist {
     private String notes;
 
 
-    // 기존 메소드는 그대로 두고
-    public void markCompleted() {
-        this.isCompleted = true;
-        this.completedAt = LocalDateTime.now();
+    public static Checklist create(Baby baby, User user, String content,
+                                   LocalDate dueDate, Integer priority,
+                                   String category, String notes) {
+        Checklist checklist = new Checklist();
+        checklist.baby = baby;
+        checklist.user = user;
+        checklist.content = content;
+        checklist.completed = false;
+        checklist.createdAt = LocalDateTime.now();
+        checklist.dueDate = dueDate;
+        checklist.priority = priority;
+        checklist.category = category;
+        checklist.notes = notes;
+        return checklist;
     }
 
     public void markIncomplete() {
-        this.isCompleted = false;
-        this.completedAt = null;
+        if (this.completed) { // 이미 완료 상태일 때만 처리
+            this.completed = false;
+            this.completedAt = null; // 완료 시각 초기화
+        }
+    }
+    // 비즈니스 메서드
+    public void complete() {
+        this.completed = true;
+        this.completedAt = LocalDateTime.now();
     }
 
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
+    public void updateDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void updatePriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    public void updateCategory(String category) {
+        this.category = category;
+    }
+
+    public void updateNotes(String notes) {
+        this.notes = notes;
+    }
 }

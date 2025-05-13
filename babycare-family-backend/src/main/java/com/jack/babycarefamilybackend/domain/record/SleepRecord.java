@@ -3,17 +3,17 @@ package com.jack.babycarefamilybackend.domain.record;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Table(name = "sleeprecord_record")
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SleepRecord {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +31,12 @@ public class SleepRecord {
     private LocalDateTime sleepEnd;
     private String note;
 
+
+    public SleepRecord(Baby baby1, User user1, LocalDateTime sleepStart, LocalDateTime sleepEnd, String note) {
+        this.baby = baby1;
+        this.user = user1;
+        this.sleepStart = sleepStart;
+        this.sleepEnd = sleepEnd;
+        this.note = note;
+    }
 }

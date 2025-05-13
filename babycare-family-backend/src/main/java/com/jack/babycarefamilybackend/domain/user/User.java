@@ -2,9 +2,7 @@ package com.jack.babycarefamilybackend.domain.user;
 
 import com.jack.babycarefamilybackend.domain.familygroup.FamilyGroup;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
@@ -25,4 +23,20 @@ public class User {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private FamilyGroup familyGroup;
+
+    public User(String name, String email, UserRole role, FamilyGroup familyGroup) {
+        this.name = name;
+        this.email = email;
+        this.role = role;
+        this.familyGroup = familyGroup;
+    }
+
+    public static User create(String name, String email, UserRole role, FamilyGroup familyGroup) {
+        User user = new User();
+        user.name = name;
+        user.email = email;
+        user.role = role;
+        user.familyGroup = familyGroup;
+        return user;
+    }
 }

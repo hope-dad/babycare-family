@@ -3,14 +3,13 @@ package com.jack.babycarefamilybackend.domain.record;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "feeding_record")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FeedingRecord {
@@ -29,4 +28,11 @@ public class FeedingRecord {
     private Double amount;  // ml
     private LocalDateTime fedAt;
 
+    public FeedingRecord(Baby baby1, User user1, String type, Double amount, LocalDateTime fedAt) {
+        this.baby = baby1;
+        this.user = user1;
+        this.type = type;
+        this.amount = amount;
+        this.fedAt = fedAt;
+    }
 }

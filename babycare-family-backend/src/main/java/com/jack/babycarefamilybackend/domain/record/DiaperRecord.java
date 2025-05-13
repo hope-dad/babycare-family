@@ -3,17 +3,18 @@ package com.jack.babycarefamilybackend.domain.record;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "diaper_record")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class DiaperRecord {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +31,11 @@ public class DiaperRecord {
     private LocalDateTime changedAt;
 
 
+    public DiaperRecord(Baby baby1, User user1, String type, String note, LocalDateTime changedAt) {
+        this.baby = baby1;
+        this.user = user1;
+        this.type = type;
+        this.note = note;
+        this.changedAt = changedAt;
+    }
 }

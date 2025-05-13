@@ -1,17 +1,16 @@
 package com.jack.babycarefamilybackend.domain.familygroup;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
+@Getter @Setter
 @Table(name = "family_group")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FamilyGroup {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +21,7 @@ public class FamilyGroup {
     private LocalDateTime createdAt;
 
 
+    public FamilyGroup(String name) {
+        this.name = name;
+    }
 }
