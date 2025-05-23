@@ -1,18 +1,18 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "target": "esnext", // async/await 등 최신 문법 지원
-    "module": "esnext", // 그대로 유지 (Babel이 처리하므로 무시됨)
-    "moduleResolution": "node16", // customConditions를 위한 설정
-    "jsx": "react-native", // 필수: React Native에서 JSX 처리 방식
-
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler", // React Native Metro bundler에 더 적합
+    "jsx": "react-jsx", // React 17+ 권장 설정
     "allowJs": true,
     "checkJs": false,
     "declaration": false,
     "outDir": "./build",
     "rootDir": "./",
     "removeComments": true,
-
+    "esModuleInterop": true, // CommonJS 모듈 호환성
+    "allowSyntheticDefaultImports": true, // import React from 'react' 허용
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -20,16 +20,47 @@
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-
+    "noUncheckedIndexedAccess": true, // 배열/객체 접근 시 안전성 강화
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true, // 파일명 대소문자 일관성 검사
+    // Path mapping (선택사항)
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/screens/*": [
+        "src/screens/*"
+      ],
+      "@/utils/*": [
+        "src/utils/*"
+      ],
+      "@/types/*": [
+        "src/types/*"
+      ]
+    }
   },
-  "include": ["src", "src/types"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*",
+    "App.tsx",
+    "app.config.js",
+    "metro.config.js",
+    "nativewind-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    ".expo",
+    "web-build"
+  ]
 }
