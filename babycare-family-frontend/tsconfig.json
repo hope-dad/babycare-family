@@ -1,6 +1,35 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "target": "esnext", // async/await 등 최신 문법 지원
+    "module": "esnext", // 그대로 유지 (Babel이 처리하므로 무시됨)
+    "moduleResolution": "node16", // customConditions를 위한 설정
+    "jsx": "react-native", // 필수: React Native에서 JSX 처리 방식
+
+    "allowJs": true,
+    "checkJs": false,
+    "declaration": false,
+    "outDir": "./build",
+    "rootDir": "./",
+    "removeComments": true,
+
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "include": ["src", "src/types"],
+  "exclude": ["node_modules"]
 }

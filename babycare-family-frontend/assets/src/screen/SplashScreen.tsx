@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppSelector } from '../hooks/useAppSelector';
 
 const SplashScreen = () => {
   const navigation = useNavigation<any>();

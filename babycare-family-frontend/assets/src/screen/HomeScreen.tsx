@@ -1,8 +1,8 @@
 // src/app/screens/HomeScreen.tsx
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-import { logout } from '../../features/auth/authSlice';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { logout } from '../features/auth/authSlice';
 
 const HomeScreen = () => {
   const dispatch = useAppDispatch();
