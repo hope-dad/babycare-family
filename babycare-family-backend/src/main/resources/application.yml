@@ -11,3 +11,14 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
 server:
   port: 4000
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html  # Swagger UI 경로 설정
+    tagsSorter: alpha       # 태그 알파벳 순 정렬
+    operationsSorter: method  # HTTP 메소드 기준으로 정렬
+  api-docs:
+    path: /v3/api-docs      # OpenAPI 문서 경로
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+

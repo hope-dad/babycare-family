@@ -3,7 +3,10 @@ package com.jack.babycarefamilybackend.domain.schedule;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -34,13 +37,15 @@ public class Schedule {
     private LocalDateTime createdAt;
 
 
-
-    public Schedule(Baby baby1, User user1, String title, LocalDateTime startTime, LocalDateTime endTime, String description) {
-        this.baby = baby1;
-        this.user = user1;
-        this.title = title;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.description = description;
+    public static Schedule create(Baby baby, User user, String title, LocalDateTime startTime, LocalDateTime endTime, String description) {
+        Schedule schedule = new Schedule();
+        schedule.setBaby(baby);
+        schedule.setUser(user);
+        schedule.setTitle(title);
+        schedule.setStartTime(startTime);
+        schedule.setEndTime(endTime);
+        schedule.setDescription(description);
+        schedule.setCreatedAt(LocalDateTime.now());
+        return schedule;
     }
 }

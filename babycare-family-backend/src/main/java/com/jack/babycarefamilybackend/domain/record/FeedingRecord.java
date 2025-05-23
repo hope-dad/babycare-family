@@ -3,7 +3,10 @@ package com.jack.babycarefamilybackend.domain.record;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -28,11 +31,13 @@ public class FeedingRecord {
     private Double amount;  // ml
     private LocalDateTime fedAt;
 
-    public FeedingRecord(Baby baby1, User user1, String type, Double amount, LocalDateTime fedAt) {
-        this.baby = baby1;
-        this.user = user1;
-        this.type = type;
-        this.amount = amount;
-        this.fedAt = fedAt;
+    public static FeedingRecord create(Baby baby, User user, String type, Double amount, LocalDateTime fedAt) {
+        FeedingRecord feedingRecord = new FeedingRecord();
+        feedingRecord.baby = baby;
+        feedingRecord.user = user;
+        feedingRecord.type = type;
+        feedingRecord.amount = amount;
+        feedingRecord.fedAt = fedAt;
+        return feedingRecord;
     }
 }

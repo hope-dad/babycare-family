@@ -29,11 +29,13 @@ public class IllnessRecord {
     private String note;
 
 
-    public IllnessRecord(Baby baby1, String symptom, LocalDate startDate, LocalDate endDate, String note) {
-        this.baby = baby1;
-        this.symptom = symptom;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.note = note;
+    public static IllnessRecord create(Baby baby, String symptom, LocalDate startDate, LocalDate endDate, String note) {
+        IllnessRecord record = new IllnessRecord();
+        record.baby = baby;
+        record.symptom = symptom;
+        record.startDate = startDate;
+        record.endDate = endDate;
+        record.note = note;
+        return record;
     }
 }

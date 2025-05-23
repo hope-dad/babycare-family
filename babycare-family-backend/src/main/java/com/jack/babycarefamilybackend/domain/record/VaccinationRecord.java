@@ -33,13 +33,14 @@ public class VaccinationRecord {
     private String note;
 
 
-
-    public VaccinationRecord(Baby baby1, User user1, String vaccineName, LocalDateTime vaccinationDate, LocalDateTime nextVaccinationDate, String note) {
-        this.baby = baby1;
-        this.user = user1;
-        this.vaccineName = vaccineName;
-        this.vaccinationDate = vaccinationDate;
-        this.nextVaccinationDate = nextVaccinationDate;
-        this.note = note;
+    public static VaccinationRecord create(Baby baby, User user, String vaccineName, LocalDateTime vaccinationDate, LocalDateTime nextVaccinationDate, String note) {
+        VaccinationRecord record = new VaccinationRecord();
+        record.baby = baby;
+        record.user = user;
+        record.vaccineName = vaccineName;
+        record.vaccinationDate = vaccinationDate;
+        record.nextVaccinationDate = nextVaccinationDate;
+        record.note = note;
+        return record;
     }
 }

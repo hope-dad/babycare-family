@@ -37,13 +37,15 @@ public class GrowthRecord {
     private String note;
 
 
-    public GrowthRecord(Baby baby1, User user1, Double height, Double weight, Double headCircumference, LocalDateTime recordedAt, String note) {
-        this.baby = baby1;
-        this.user = user1;
-        this.height = height;
-        this.weight = weight;
-        this.headCircumference = headCircumference;
-        this.recordedAt = recordedAt;
-        this.note = note;
+    public static GrowthRecord create(Baby baby, User user, Double height, Double weight, Double headCircumference, LocalDateTime recordedAt, String note) {
+        GrowthRecord growthRecord = new GrowthRecord();
+        growthRecord.setBaby(baby);
+        growthRecord.setUser(user);
+        growthRecord.setHeight(height);
+        growthRecord.setWeight(weight);
+        growthRecord.setHeadCircumference(headCircumference);
+        growthRecord.setRecordedAt(recordedAt);
+        growthRecord.setNote(note);
+        return growthRecord;
     }
 }

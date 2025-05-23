@@ -35,7 +35,7 @@ public class DiaperRecordService {
         User user = userRepository.findById(request.userId())
                 .orElseThrow(() -> new ResourceNotFoundException("User", request.userId(), "user with Id", request.userId() + "not found"));
 
-        DiaperRecord diaperRecord = diaperRecordMapper.toEntity(request, baby, user);
+        DiaperRecord diaperRecord = diaperRecordMapper.toEntity(request, user, baby);
         DiaperRecord savedRecord = diaperRecordRepository.save(diaperRecord);
         return diaperRecordMapper.toDto(savedRecord);
     }

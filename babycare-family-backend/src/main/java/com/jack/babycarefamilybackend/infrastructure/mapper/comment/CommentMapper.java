@@ -18,11 +18,10 @@ public interface CommentMapper {
                 request.recordId(),
                 request.babyId(),
                 user,
-                null // createdAt은 엔티티 내부나 DB에서 설정될 거라 null 또는 기본값 전달
+                null
         );
     }
 
-    // Comment 엔티티를 받아서 CommentDto로 변환
     @Mappings({
             @Mapping(target = "userId", source = "comment.user.id")
     })

@@ -1,23 +1,26 @@
 package com.jack.babycarefamilybackend.infrastructure.config;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
 
     @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2) // Swagger 2 문서 타입 설정
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.jack.babycarefamilybackend")) // API 패키지 설정
-                .paths(PathSelectors.any()) // 모든 경로 포함
-                .build();
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("BabyCore Family  API")
+                        .description("아기 돌봄 서비스 API 문서")
+                        .version("1.0.0")
+                        .contact(new Contact()
+                                .name("jack")
+                                .email("youngsik3200@gmail.com")))
+                .addServersItem(new Server().url("/")
+                        .description("default server"));
     }
 }

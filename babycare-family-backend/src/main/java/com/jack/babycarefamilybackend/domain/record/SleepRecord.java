@@ -32,11 +32,13 @@ public class SleepRecord {
     private String note;
 
 
-    public SleepRecord(Baby baby1, User user1, LocalDateTime sleepStart, LocalDateTime sleepEnd, String note) {
-        this.baby = baby1;
-        this.user = user1;
-        this.sleepStart = sleepStart;
-        this.sleepEnd = sleepEnd;
-        this.note = note;
+    public static SleepRecord create(Baby baby, User user, LocalDateTime sleepStart, LocalDateTime sleepEnd, String note) {
+        SleepRecord record = new SleepRecord();
+        record.baby = baby;
+        record.user = user;
+        record.sleepStart = sleepStart;
+        record.sleepEnd = sleepEnd;
+        record.note = note;
+        return record;
     }
 }

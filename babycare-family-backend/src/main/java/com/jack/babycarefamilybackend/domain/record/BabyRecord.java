@@ -2,7 +2,10 @@ package com.jack.babycarefamilybackend.domain.record;
 
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -22,8 +25,10 @@ public class BabyRecord {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public BabyRecord(String content, User user1) {
-        this.content = content;
-        this.user = user1;
+    public static BabyRecord create(String content, User user) {
+        BabyRecord babyRecord = new BabyRecord();
+        babyRecord.content = content;
+        babyRecord.user = user;
+        return babyRecord;
     }
 }

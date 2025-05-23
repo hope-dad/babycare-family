@@ -30,4 +30,15 @@ public class MilestoneRecord {
     private LocalDate date;
     private String note;
     private String photoUrl;
+
+    public static MilestoneRecord create(Baby baby, User user, String eventName, LocalDate date, String note, String photoUrl) {
+        MilestoneRecord milestoneRecord = new MilestoneRecord();
+        milestoneRecord.baby = baby;
+        milestoneRecord.user = user;
+        milestoneRecord.eventName = eventName;
+        milestoneRecord.date = date;
+        milestoneRecord.note = note;
+        milestoneRecord.photoUrl = photoUrl;
+        return milestoneRecord;
+    }
 }

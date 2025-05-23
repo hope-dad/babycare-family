@@ -4,8 +4,9 @@ import com.jack.babycarefamilybackend.application.usecase.baby.BabyService;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.baby.BabyDto;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.baby.CreateBabyRequest;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.baby.UpdateBabyRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.sql.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/babies")
 @RequiredArgsConstructor
+@Tag(name ="Baby", description = "아기 관리 API")
 public class BabyController {
 
     private final BabyService babyService;
@@ -40,6 +42,7 @@ public class BabyController {
     /**
      * 아기 단건 조회
      */
+    @Operation(summary = "아기 단건 조회", description = "아기 ID로 상세 정보를 조회합니다")
     @GetMapping("/{babyId}")
     public ResponseEntity<BabyDto> getBabyById(@PathVariable Long babyId) {
         BabyDto baby = babyService.getBabyById(babyId);

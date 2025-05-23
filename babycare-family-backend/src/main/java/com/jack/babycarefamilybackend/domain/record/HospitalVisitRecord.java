@@ -3,7 +3,10 @@ package com.jack.babycarefamilybackend.domain.record;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +16,6 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class HospitalVisitRecord {
-
 
 
     @Id
@@ -34,13 +36,23 @@ public class HospitalVisitRecord {
     private String diagnosis;
     private String prescribedMedication;
 
-    public HospitalVisitRecord(Baby baby1, User user1, LocalDateTime visitDate, String hospitalName, String symptoms, String diagnosis, String prescribedMedication) {
-        this.baby = baby1;
-        this.user = user1;
-        this.visitDate = visitDate;
-        this.hospitalName = hospitalName;
-        this.symptoms = symptoms;
-        this.diagnosis = diagnosis;
-        this.prescribedMedication = prescribedMedication;
+    public static HospitalVisitRecord create(
+            Baby baby,
+            User user,
+            LocalDateTime visitDate,
+            String hospitalName,
+            String symptoms,
+            String diagnosis,
+            String prescribedMedication
+    ) {
+        HospitalVisitRecord record = new HospitalVisitRecord();
+        record.baby = baby;
+        record.user = user;
+        record.visitDate = visitDate;
+        record.hospitalName = hospitalName;
+        record.symptoms = symptoms;
+        record.diagnosis = diagnosis;
+        record.prescribedMedication = prescribedMedication;
+        return record;
     }
 }

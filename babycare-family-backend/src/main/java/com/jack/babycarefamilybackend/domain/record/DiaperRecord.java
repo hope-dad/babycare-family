@@ -30,12 +30,19 @@ public class DiaperRecord {
     private String note;
     private LocalDateTime changedAt;
 
-
-    public DiaperRecord(Baby baby1, User user1, String type, String note, LocalDateTime changedAt) {
-        this.baby = baby1;
-        this.user = user1;
-        this.type = type;
-        this.note = note;
-        this.changedAt = changedAt;
+    public static DiaperRecord create(
+            Baby baby,
+            User user,
+            String type,
+            String note,
+            LocalDateTime changedAt
+    ) {
+        DiaperRecord record = new DiaperRecord();
+        record.baby = baby;
+        record.user = user;
+        record.type = type;
+        record.note = note;
+        record.changedAt = changedAt;
+        return record;
     }
 }

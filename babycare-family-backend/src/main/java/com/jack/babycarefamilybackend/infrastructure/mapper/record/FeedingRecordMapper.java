@@ -7,14 +7,25 @@ import com.jack.babycarefamilybackend.infrastructure.web.dto.record.dto.FeedingR
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.request.CreateFeedingRecordRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring")
 public interface FeedingRecordMapper {
 
+    default FeedingRecord toEntity(CreateFeedingRecordRequest request, Baby baby, User user) {
+        return FeedingRecord.create(
+                baby,
+                user,
+                request.type(),
+                request.amount(),
+                request.fedAt()
+        );
+    }
 
-    @Mapping(target = "id", ignore = true)
-    FeedingRecord toEntity(CreateFeedingRecordRequest request, Baby baby, User user);
-
+    @Mappings({
+            @Mapping(target = "babyId", source = "baby.id"),
+            @Mapping(target = "userId", source = "user.id")
+    })
     FeedingRecordDto toDto(FeedingRecord feedingRecord);
 
 }

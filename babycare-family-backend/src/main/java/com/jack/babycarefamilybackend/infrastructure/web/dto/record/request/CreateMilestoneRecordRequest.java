@@ -9,4 +9,5 @@ public record CreateMilestoneRecordRequest(
         LocalDate date,
         String note,
         String photoUrl
-) {}
+) {
+}
