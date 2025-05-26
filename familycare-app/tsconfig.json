@@ -1,6 +1,20 @@
 {
-  "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "target": "ES2024", // 컴파일될 JS 버전 (ES5로 하되 Next.js가 처리)
+    "lib": ["dom", "dom.iterable", "esnext"], // 사용 가능한 표준 라이브러리
+    "allowJs": false, // <--- 바로 이 부분! JS 파일 포함 안 함!
+    "skipLibCheck": true, // 라이브러리 타입 체크 스킵 (편의성)
+    "esModuleInterop": true, // ES 모듈 호환성 켜기 (요즘 국룰)
+    "allowSyntheticDefaultImports": true, // default export 없는 모듈 default 임포트 허용
+    "strict": true, // 엄격 모드 켜기 (타입 안정성 개꿀)
+    "forceConsistentCasingInFileNames": true, // 파일 이름 대소문자 일관성 강제
+    "module": "esnext", // 모듈 시스템 (최신 ES 모듈)
+    "moduleResolution": "node", // 모듈 해석 방식 (Node.js)
+    "resolveJsonModule": true, // JSON 파일 임포트 허용
+    "isolatedModules": true, // 독립적 모듈 컴파일 가능 여부 확인
+    "noEmit": true, // TS -> JS 컴파일 결과 파일 생성 안 함 (Next.js가 함)
+    "allowImportingTsExtensions": true, // TS 확장자 명시 임포트 허용
+    "jsx": "react" // JSX 변환 방식
+  },
+  "include": ["src"] // src 폴더 안의 파일들만 컴파일 대상으로 함
 }
