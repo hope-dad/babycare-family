@@ -1,134 +1,133 @@
-# Family Care App Backend
+# 👨‍👩‍👧 Family Care App Backend
 
-## 📦 **프로젝트 개요**
-Family Care App은 아기의 성장, 건강 기록을 관리하고 가족 간 소통을 돕기 위한 앱입니다.  
-Backend는 Spring Boot를 기반으로 구현되었으며, 주요 도메인은 다음과 같습니다:
+## 📌 프로젝트 개요
 
-- 아기정보
-- 체크리스트
-- 코멘트
-- 가족그룹
-- 성장 기록
-- 기저귀 리코드
-- 수유기록 리코드
-- 수면 기록 리코드
-- 일정 기록
-- 의료 기록 리코드
-- 병원 방문 기록 리코드
-- 예방 접종 리코드
-- 질병 기록 리코드
-- 유저
+**Family Care App**은 아기의 성장 및 건강 기록을 체계적으로 관리하고, 가족 간 육아 정보를 공유할 수 있도록 도와주는 백엔드 시스템입니다.  
+Spring Boot 기반으로 개발되었으며, 클린 아키텍처를 따릅니다.
 
 ---
 
-## 🛠️ **기술 스택**
+## 📂 디렉토리 구조
+
+```bash
+com.jack.babycarefamilybackend
+├── application
+│   ├── port               # UseCase 인터페이스 정의
+│   └── usecase            # 애플리케이션 로직 (각 도메인별 유스케이스)
+│       ├── baby
+│       ├── checklist
+│       ├── comment
+│       ├── familygroup
+│       ├── record
+│       ├── schedule
+│       └── user
+├── common
+│   ├── exception          # 커스텀 예외 정의
+│   └── util               # 공통 유틸리티 클래스
+├── domain                 # 엔티티 및 도메인 모델
+├── infrastructure
+│   ├── config             # 설정 클래스 (Security, Swagger 등)
+│   ├── external           # 외부 연동 모듈 (S3, FCM 등)
+│   ├── mapper             # DTO ↔ Entity 매핑 클래스
+│   ├── persistence        # JPA Repository 구현체
+│   └── web                # Controller 계층
+└── BabycareFamilyBackendApplication.java  # Spring Boot 진입점
+```
+
+---
+
+## ⚙️ 기술 스택
 
 - Java 21
 - Spring Boot 3.4
-- Spring Security
-- JWT Authentication
-- JPA/Hibernate
+- Spring Security + JWT
+- JPA (Hibernate)
 - MySQL
-- Redis (세션 관리 및 캐싱)
+- Redis
 - AWS S3 (파일 업로드)
-- Firebase Cloud Messaging (푸시 알림)
-- WebSockets (실시간 업데이트)
-- Quartz Scheduler (배치 작업)
-- Logback (로그 관리)
-- Swagger (API 문서화)
+- Firebase Cloud Messaging (FCM)
+- WebSocket
+- Quartz Scheduler
+- Logback, Swagger
 
 ---
 
-## ✅ **구현 예정 기능**
+## 🧩 주요 기능
 
-### 1. 인증 및 인가 (Authentication & Authorization)
-- JWT 기반 인증 구현
-- 유저 역할(Role) 기반 접근 제어 (부모, 보호자, 병원 관계자 등)
-- 소셜 로그인 (Google, Apple)
+### ✅ 인증 및 인가
+- JWT 기반 로그인/로그아웃
+- 역할 기반 접근 제어 (부모, 보호자 등)
+- Google / Apple 소셜 로그인 예정
 
----
+### ✅ 육아 기록 관리
+- 아기 정보 등록 및 수정
+- 수유/수면/기저귀 기록
+- 성장 및 질병 기록
+- 병원 방문, 의료 이력, 예방접종 관리
 
-### 2. 알림(Notification) 시스템
-- 푸시 알림, 이메일 알림, 앱 내 알림
-- 일정 기록, 예방 접종 리코드, 병원 방문 리코드에 대한 알림 트리거
-- Firebase Cloud Messaging (FCM) 사용
+### ✅ 가족 그룹
+- 가족 구성원 초대 및 권한 설정
+- 그룹 내 사용자와 기록 공유
 
----
+### ✅ 알림 시스템
+- FCM 기반 푸시 알림
+- 예방 접종, 일정 등 주요 이벤트 알림
 
-### 3. 데이터 보안 및 개인정보 보호
-- 민감한 정보 암호화 (의료 기록, 질병 기록 등)
-- HTTPS 및 CORS 설정
-- GDPR, CCPA 준수
+### ✅ 통계 API
+- 수면, 수유 등 기록 통계 제공
+- 대시보드 시각화용 API
 
----
-
-### 4. 이미지 및 파일 업로드
-- S3를 통한 이미지 업로드
-- 이미지 리사이징 및 썸네일 생성
-
----
-
-### 5. 통계 및 대시보드 API
-- 성장 기록, 수면 기록, 수유기록 등을 시각화하는 통계 API
-- 차트 데이터 제공
+### ✅ 실시간 기능
+- WebSocket을 통한 실시간 기록 공유
 
 ---
 
-### 6. 실시간 업데이트
-- WebSocket 또는 Server-Sent Events (SSE)를 통한 실시간 데이터 업데이트
+## 📅 예정 기능
+
+| 기능                         | 상태   |
+|----------------------------|--------|
+| 소셜 로그인                 | 🔜 예정 |
+| API 버전 관리               | 🔜 예정 |
+| 데이터 백업/복구 API        | 🔜 예정 |
+| 다국어(i18n) 지원           | 🔜 예정 |
+| 검색 및 필터링 기능         | 🔜 예정 |
+| Rate Limiting              | 🔜 예정 |
+| CI/CD 파이프라인 구축       | 🔜 예정 |
 
 ---
 
-### 7. 데이터 백업 및 복구
-- 데이터 백업 스케줄링
-- 데이터 복구 및 복원 API
+
+## 🧪 테스트
+
+- **JUnit5**, **Mockito** 기반 유닛 및 통합 테스트 작성
+- Postman / Swagger로 API 테스트 진행
+- 테스트 커버리지 목표: 80% 이상
 
 ---
 
-### 8. 검색 및 필터링 기능
-- 기록별 검색 (수유 기록, 예방 접종 기록 등)
-- 날짜, 유형별 필터링
+## 📈 모니터링 및 로깅
+
+- `Spring Boot Actuator` + `Prometheus` + `Grafana`
+- 로그 수집: `Logback`, `ELK Stack`, `Sentry`
 
 ---
 
-### 9. 다국어 지원 (i18n)
-- 텍스트 및 알림 메시지에 대한 다국어 지원
+## 🤝 기여 가이드
+
+1. Fork → 수정 → Pull Request
+2. 커밋 메시지 컨벤션 유지 (e.g., `feat: 가족 그룹 초대 API 추가`)
+3. Swagger 문서 유지 필수
 
 ---
 
-### 10. 스케줄링 및 배치 작업
-- Spring Scheduler 또는 Quartz를 사용하여 일정 알림, 예방 접종 리마인더 등 자동화
+## 🧠 참고 아키텍처
+
+- 클린 아키텍처 기반의 계층적 구조
+- 도메인 중심 설계 (DDD Lite)
+- 각 계층 간 의존성 역전 유지
 
 ---
 
-### 11. 테스트 및 문서화
-- API 문서화: Swagger/OpenAPI
-- 유닛 테스트, 통합 테스트 작성 (JUnit, Mockito)
-- Postman 또는 Insomnia로 API 테스트
+## 📝 License
 
----
-
-### 12. API Rate Limiting & Monitoring
-- Rate Limiting 설정 (API 악용 방지)
-- Spring Boot Actuator, Prometheus, Grafana를 통한 애플리케이션 성능 모니터링
-
----
-
-### 13. 버전 관리 및 CI/CD
-- API 버전 관리 (v1, v2)
-- CI/CD 파이프라인 구축 (GitHub Actions, Jenkins, GitLab CI)
-
----
-
-### 14. 로그 관리 및 에러 트래킹
-- Logback, ELK Stack (Elasticsearch, Logstash, Kibana)로 로그 관리
-- Sentry 또는 Datadog을 통한 에러 모니터링
-
----
-
-## 🚀 **프로젝트 실행 방법**
-
-1. **프로젝트 클론**
-   ```bash
-   git clone https://github.com/your-repo/family-care-backend.git
-   cd family-care-backend
+MIT License © 2025 Jack
