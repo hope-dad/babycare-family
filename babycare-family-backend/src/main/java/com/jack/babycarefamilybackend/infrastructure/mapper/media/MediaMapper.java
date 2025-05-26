@@ -25,5 +25,4 @@ public interface MediaMapper {
     @Mapping(target = "updatedAt", source = "updatedAt")
     MediaDto toDto(Media media);
 
-
 }

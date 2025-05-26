@@ -1,6 +1,5 @@
-package com.jack.babycarefamilybackend.application.usecase.record.impl;
+package com.jack.babycarefamilybackend.application.usecase.record;
 
-import com.jack.babycarefamilybackend.application.usecase.record.service.DiaperRecordService;
 import com.jack.babycarefamilybackend.common.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.port.repository.BabyRepository;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DiaperRecordServiceImpl implements DiaperRecordService {
+public class DiaperRecordService {
 
     private final DiaperRecordMapper diaperRecordMapper;
 
@@ -27,7 +26,7 @@ public class DiaperRecordServiceImpl implements DiaperRecordService {
     private final BabyRepository babyRepository;
     private final UserRepository userRepository;
 
-    @Override
+
     @Transactional
     public DiaperRecordDto createDiaperRecord(CreateDiaperRecordRequest request) {
 
@@ -42,7 +41,7 @@ public class DiaperRecordServiceImpl implements DiaperRecordService {
         return diaperRecordMapper.toDto(savedRecord);
     }
 
-    @Override
+
     @Transactional(readOnly = true)
     public List<DiaperRecordDto> getRecordsByBabyId(Long babyId) {
         return diaperRecordRepository.findByBabyId(babyId)
@@ -50,7 +49,7 @@ public class DiaperRecordServiceImpl implements DiaperRecordService {
                 .map(diaperRecordMapper::toDto)
                 .toList();
     }
-    @Override
+
     @Transactional(readOnly = true)
     public List<DiaperRecordDto> getRecordsByUserId(Long userId) {
         return diaperRecordRepository.findByUserId(userId)

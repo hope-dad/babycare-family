@@ -1,6 +1,6 @@
 package com.jack.babycarefamilybackend.infrastructure.web.controller.record;
 
-import com.jack.babycarefamilybackend.application.usecase.record.service.DiaperRecordService;
+import com.jack.babycarefamilybackend.application.usecase.record.DiaperRecordService;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.dto.DiaperRecordDto;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.request.CreateDiaperRecordRequest;
 import lombok.RequiredArgsConstructor;

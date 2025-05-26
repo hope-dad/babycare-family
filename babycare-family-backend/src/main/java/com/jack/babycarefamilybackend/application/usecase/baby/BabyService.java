@@ -1,71 +1,99 @@
 package com.jack.babycarefamilybackend.application.usecase.baby;
 
+import com.jack.babycarefamilybackend.common.exception.ResourceNotFoundException;
+import com.jack.babycarefamilybackend.domain.baby.Baby;
+import com.jack.babycarefamilybackend.domain.baby.Gender;
+import com.jack.babycarefamilybackend.domain.familygroup.FamilyGroup;
+import com.jack.babycarefamilybackend.domain.port.repository.BabyRepository;
+import com.jack.babycarefamilybackend.domain.port.repository.FamilyGroupRepository;
+import com.jack.babycarefamilybackend.infrastructure.mapper.baby.BabyMapper;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.baby.BabyDto;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.baby.CreateBabyRequest;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.baby.UpdateBabyRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface BabyService {
+@Service
+@RequiredArgsConstructor
+public class BabyService {
 
-    /**
-     * 아기 생성
-     */
-    BabyDto createBaby(CreateBabyRequest request);
-
-    /**
-     * 가족 그룹 내 아기 목록 조회
-     */
-    List<BabyDto> getBabiesByFamilyGroup(Long familyGroupId);
-
-    /**
-     * 아기 단건 조회
-     */
-    BabyDto getBabyById(Long babyId);
-
-    /**
-     * 아기 정보 업데이트
-     */
-    BabyDto updateBaby(Long babyId, UpdateBabyRequest request);
-
-    /**
-     * 아기 삭제
-     */
-    void deleteBaby(Long babyId);
-
-    /**
-     * 아기 존재 여부 확인
-     */
-    boolean existsById(Long babyId);
-
-    // --- 아까 추가적으로 고려해볼 만한 메소드 제안 (필요하다면 추가) ---
-    /*
-     *//**
-     * 아기를 특정 가족 그룹에 연결
-     *//*
-    void addBabyToFamilyGroup(Long babyId, Long familyGroupId);
+    private final BabyRepository babyRepository;
+    private final FamilyGroupRepository familyGroupRepository;
+    private final BabyMapper babyMapper;
 
 
-    void removeBabyFromFamilyGroup(Long babyId, Long familyGroupId);
+    @Transactional
+    public BabyDto createBaby(CreateBabyRequest request) {
+        FamilyGroup familyGroup = familyGroupRepository.findById(request.familyGroupId())
+                .orElseThrow(() -> new ResourceNotFoundException("FamilyGroup", request.familyGroupId(), "Family Group not found"));
 
-    *//**
-     * 특정 유저와 연관된 (생성했거나 접근 가능한) 모든 아기 목록 조회
-     *//*
-    List<BabyDto> getBabiesByUser(Long userId);
+        Baby baby = babyMapper.toEntity(request, familyGroup);
+        Baby savedBaby = babyRepository.save(baby);
+        return babyMapper.toDto(savedBaby);
+    }
 
-    *//**
-     * 아기 삭제 (논리적 삭제)
-     *//*
-    void softDeleteBaby(Long babyId);
 
-    *//**
-     * 논리적 삭제된 아기 복구
-     *//*
-    void restoreBaby(Long babyId);
+    @Transactional(readOnly = true)
+    public List<BabyDto> getBabiesByFamilyGroup(Long familyGroupId) {
+        return babyRepository.findByFamilyGroupId(familyGroupId)
+                .stream()
+                .map(babyMapper::toDto)
+                .toList();
+    }
 
-    *//**
-     * 특정 유저의 주요 아기 설정
-     *//*
-    void setPrimaryBaby(Long userId, Long babyId);
-    */
+
+    @Transactional(readOnly = true)
+    public BabyDto getBabyById(Long babyId) {
+        Baby baby = babyRepository.findById(babyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Baby", babyId, "Baby not found"));
+        return babyMapper.toDto(baby);
+    }
+
+
+    @Transactional
+    public BabyDto updateBaby(Long babyId, UpdateBabyRequest request) {
+        Baby existingBaby = babyRepository.findById(babyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Baby", babyId, "Baby not found"));
+
+        FamilyGroup familyGroup = familyGroupRepository.findById(request.familyGroupId())
+                .orElseThrow(() -> new ResourceNotFoundException("FamilyGroup", request.familyGroupId(), "Family Group not found"));
+
+        // Gender 문자열 → Enum 안전 변환
+        Gender gender = Gender.from(request.gender());
+
+        // 엔티티 메서드를 통해 업데이트 진행 (Setter보다 명확한 메서드 권장)
+        existingBaby.updateBabyInfo(
+                request.name(),
+                request.birthDate(),
+                gender,
+                familyGroup,
+                request.photoUrl(),
+                request.bloodType(),
+                request.characteristics(),
+                request.allergies(),
+                request.prenatalName()
+        );
+
+        Baby updatedBaby = babyRepository.save(existingBaby);
+        return babyMapper.toDto(updatedBaby);
+    }
+
+
+    @Transactional
+    public void deleteBaby(Long babyId) {
+        Baby baby = babyRepository.findById(babyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Baby", babyId, "Baby not found"));
+
+        baby.softDelete();
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsById(Long babyId) {
+        return babyRepository.existsById(babyId);
+    }
+
+
 }

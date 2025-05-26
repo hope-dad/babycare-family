@@ -1,6 +1,6 @@
 package com.jack.babycarefamilybackend.infrastructure.web.controller.record;
 
-import com.jack.babycarefamilybackend.application.usecase.record.service.HospitalVisitRecordService;
+import com.jack.babycarefamilybackend.application.usecase.record.HospitalVisitRecordService;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.dto.HospitalVisitRecordDto;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.request.CreateHospitalVisitRecordRequest;
 import lombok.RequiredArgsConstructor;

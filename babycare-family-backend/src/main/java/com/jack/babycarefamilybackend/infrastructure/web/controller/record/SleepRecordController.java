@@ -1,6 +1,6 @@
 package com.jack.babycarefamilybackend.infrastructure.web.controller.record;
 
-import com.jack.babycarefamilybackend.application.usecase.record.service.SleepRecordService;
+import com.jack.babycarefamilybackend.application.usecase.record.SleepRecordService;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.dto.SleepRecordDto;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.request.CreateSleepRecordRequest;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,5 @@
-package com.jack.babycarefamilybackend.application.usecase.record.impl;
+package com.jack.babycarefamilybackend.application.usecase.record;
 
-import com.jack.babycarefamilybackend.application.usecase.record.service.FeedingRecordService;
 import com.jack.babycarefamilybackend.common.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.port.repository.BabyRepository;
@@ -19,14 +18,14 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class FeedingRecordServiceImpl implements FeedingRecordService {
+public class FeedingRecordService {
 
     private final FeedingRecordMapper feedingRecordMapper;
     private final BabyRepository babyRepository;
     private final UserRepository userRepository;
     private final FeedingRecordRepository feedingRecordRepository;
 
-    @Override
+
     @Transactional
     public FeedingRecordDto createFeedingRecord(CreateFeedingRecordRequest request) {
 
@@ -40,7 +39,7 @@ public class FeedingRecordServiceImpl implements FeedingRecordService {
         FeedingRecord savedRecord = feedingRecordRepository.save(feedingRecord);
         return feedingRecordMapper.toDto(savedRecord);
     }
-    @Override
+
     @Transactional(readOnly = true)
     public List<FeedingRecordDto> getRecordsByBabyId(Long babyId) {
         return feedingRecordRepository.findByBabyId(babyId)
@@ -49,7 +48,7 @@ public class FeedingRecordServiceImpl implements FeedingRecordService {
                 .toList();
     }
 
-    @Override
+
     @Transactional(readOnly = true)
     public List<FeedingRecordDto> getRecordsByUserId(Long userId) {
         return feedingRecordRepository.findByUserId(userId)

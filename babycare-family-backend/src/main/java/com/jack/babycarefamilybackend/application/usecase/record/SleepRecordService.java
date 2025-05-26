@@ -1,7 +1,6 @@
-package com.jack.babycarefamilybackend.application.usecase.record.impl;
+package com.jack.babycarefamilybackend.application.usecase.record;
 
 
-import com.jack.babycarefamilybackend.application.usecase.record.service.SleepRecordService;
 import com.jack.babycarefamilybackend.common.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.port.repository.BabyRepository;
@@ -20,14 +19,14 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SleepRecordServiceImpl implements SleepRecordService {
+public class SleepRecordService {
 
     private final SleepRecordMapper sleepRecordMapper;
     private final BabyRepository babyRepository;
     private final UserRepository userRepository;
     private final SleepRecordRepository sleepRecordRepository;
 
-    @Override
+
     @Transactional
     public SleepRecordDto createSleepRecord(CreateSleepRecordRequest request) {
 
@@ -42,7 +41,7 @@ public class SleepRecordServiceImpl implements SleepRecordService {
         return sleepRecordMapper.toDto(savedRecord);
     }
 
-    @Override
+
     @Transactional(readOnly = true)
     public List<SleepRecordDto> getRecordsByBabyId(Long babyId) {
         return sleepRecordRepository.findByBabyId(babyId)

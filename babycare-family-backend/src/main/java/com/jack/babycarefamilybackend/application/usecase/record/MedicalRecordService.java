@@ -1,6 +1,5 @@
-package com.jack.babycarefamilybackend.application.usecase.record.impl;
+package com.jack.babycarefamilybackend.application.usecase.record;
 
-import com.jack.babycarefamilybackend.application.usecase.record.service.MedicalRecordService;
 import com.jack.babycarefamilybackend.common.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.port.repository.BabyRepository;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MedicalRecordServiceImpl implements MedicalRecordService {
+public class MedicalRecordService {
 
     private final MedicalRecordMapper medicalRecordMapper;
 
@@ -27,7 +26,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     private final UserRepository userRepository;
     private final MedicalRecordRepository medicalRecordRepository;
 
-    @Override
+
     @Transactional
     public MedicalRecordDto createMedicalRecord(CreateMedicalRecordRequest request) {
         Baby baby = babyRepository.findById(request.babyId())
@@ -41,7 +40,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         return medicalRecordMapper.toDto(savedRecord);
     }
 
-    @Override
+
     @Transactional(readOnly = true)
     public List<MedicalRecordDto> getRecordsByBabyId(Long babyId) {
         return medicalRecordRepository.findByBabyId(babyId)
@@ -50,7 +49,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
                 .toList();
     }
 
-    @Override
+
     @Transactional(readOnly = true)
     public List<MedicalRecordDto> getRecordsByUserId(Long userId) {
         return medicalRecordRepository.findByUserId(userId)

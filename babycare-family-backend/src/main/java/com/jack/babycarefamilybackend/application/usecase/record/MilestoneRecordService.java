@@ -1,6 +1,5 @@
-package com.jack.babycarefamilybackend.application.usecase.record.impl;
+package com.jack.babycarefamilybackend.application.usecase.record;
 
-import com.jack.babycarefamilybackend.application.usecase.record.service.MilestoneRecordService;
 import com.jack.babycarefamilybackend.common.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.port.repository.BabyRepository;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MilestoneRecordServiceImpl implements MilestoneRecordService {
+public class MilestoneRecordService {
 
     private final MilestoneRecordMapper milestoneRecordMapper;
     private final BabyRepository babyRepository;
@@ -27,7 +26,7 @@ public class MilestoneRecordServiceImpl implements MilestoneRecordService {
 
     private final MilestoneRecordRepository milestoneRecordRepository;
 
-    @Override
+
     @Transactional
     public MilestoneRecordDto createMilestone(CreateMilestoneRecordRequest request) {
 
@@ -40,7 +39,7 @@ public class MilestoneRecordServiceImpl implements MilestoneRecordService {
         MilestoneRecord record = milestoneRecordMapper.toEntity(request, baby, user);
         return milestoneRecordMapper.toDto(milestoneRecordRepository.save(record));
     }
-    @Override
+
     @Transactional(readOnly = true)
     public List<MilestoneRecordDto> getByBabyId(Long babyId) {
         return milestoneRecordRepository.findByBabyId(babyId)
@@ -49,7 +48,7 @@ public class MilestoneRecordServiceImpl implements MilestoneRecordService {
                 .toList();
     }
 
-    @Override
+
     @Transactional(readOnly = true)
     public List<MilestoneRecordDto> getByUserId(Long userId) {
         return milestoneRecordRepository.findByUserId(userId)

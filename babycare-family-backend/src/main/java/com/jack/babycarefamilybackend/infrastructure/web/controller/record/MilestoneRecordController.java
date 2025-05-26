@@ -1,6 +1,6 @@
 package com.jack.babycarefamilybackend.infrastructure.web.controller.record;
 
-import com.jack.babycarefamilybackend.application.usecase.record.service.MilestoneRecordService;
+import com.jack.babycarefamilybackend.application.usecase.record.MilestoneRecordService;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.dto.MilestoneRecordDto;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.request.CreateMilestoneRecordRequest;
 import lombok.RequiredArgsConstructor;

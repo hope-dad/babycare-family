@@ -1,6 +1,5 @@
-package com.jack.babycarefamilybackend.application.usecase.record.impl;
+package com.jack.babycarefamilybackend.application.usecase.record;
 
-import com.jack.babycarefamilybackend.application.usecase.record.service.BabyRecordService;
 import com.jack.babycarefamilybackend.common.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.domain.port.repository.BabyRecordRepository;
 import com.jack.babycarefamilybackend.domain.port.repository.UserRepository;
@@ -17,13 +16,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BabyRecordServiceImpl implements BabyRecordService {
+public class BabyRecordService {
     private final BabyRecordMapper babyRecordMapper;
 
     private final BabyRecordRepository babyRecordRepository;
     private final UserRepository userRepository;
 
-    @Override
+
     @Transactional
     public BabyRecordDto create(CreateBabyRecordRequest request) {
         User user = userRepository.findById(request.userId())
@@ -32,7 +31,7 @@ public class BabyRecordServiceImpl implements BabyRecordService {
         return babyRecordMapper.toDto(babyRecordRepository.save(record));
     }
 
-    @Override
+
     public List<BabyRecordDto> findAll() {
         return babyRecordRepository.findAll()
                 .stream()

@@ -1,6 +1,5 @@
-package com.jack.babycarefamilybackend.application.usecase.record.impl;
+package com.jack.babycarefamilybackend.application.usecase.record;
 
-import com.jack.babycarefamilybackend.application.usecase.record.service.HospitalVisitRecordService;
 import com.jack.babycarefamilybackend.common.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.port.repository.BabyRepository;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class HospitalVisitRecordServiceImpl implements HospitalVisitRecordService {
+public class HospitalVisitRecordService {
 
     private final HospitalVisitRecordMapper hospitalVisitRecordMapper;
 
@@ -27,7 +26,7 @@ public class HospitalVisitRecordServiceImpl implements HospitalVisitRecordServic
     private final BabyRepository babyRepository;
     private final UserRepository userRepository;
 
-    @Override
+
     @Transactional
     public HospitalVisitRecordDto createRecord(CreateHospitalVisitRecordRequest request) {
         Baby baby = babyRepository.findById(request.babyId())
@@ -40,7 +39,7 @@ public class HospitalVisitRecordServiceImpl implements HospitalVisitRecordServic
         return hospitalVisitRecordMapper.toDto(hospitalVisitRecordRepository.save(record));
     }
 
-    @Override
+
     @Transactional(readOnly = true)
     public List<HospitalVisitRecordDto> getByBabyId(Long babyId) {
         return hospitalVisitRecordRepository.findByBabyId(babyId)
@@ -49,7 +48,7 @@ public class HospitalVisitRecordServiceImpl implements HospitalVisitRecordServic
                 .toList();
     }
 
-    @Override
+
     @Transactional(readOnly = true)
     public List<HospitalVisitRecordDto> getByUserId(Long userId) {
         return hospitalVisitRecordRepository.findByUserId(userId)
