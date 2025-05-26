@@ -45,6 +45,7 @@ public class ChecklistServiceImpl implements ChecklistService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ChecklistDto> getByBaby(Long babyId) {
         return checklistRepository.findByBabyId(babyId)
                 .stream()
@@ -53,6 +54,7 @@ public class ChecklistServiceImpl implements ChecklistService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ChecklistDto> getByUser(Long userId) {
         return checklistRepository.findByUserId(userId)
                 .stream()

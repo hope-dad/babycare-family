@@ -1,5 +1,6 @@
 package com.jack.babycarefamilybackend.application.usecase.record.impl;
 
+import com.jack.babycarefamilybackend.application.usecase.record.service.GrowthRecordService;
 import com.jack.babycarefamilybackend.common.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.port.repository.BabyRepository;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GrowthRecordServiceImpl {
+public class GrowthRecordServiceImpl implements GrowthRecordService {
 
     private final GrowthRecordMapper growthRecordMapper;
 
@@ -26,6 +27,7 @@ public class GrowthRecordServiceImpl {
     private final UserRepository userRepository;
     private final GrowthRecordRepository growthRecordRepository;
 
+    @Override
     @Transactional
     public GrowthRecordDto createGrowthRecord(CreateGrowthRecordRequest request) {
 
@@ -40,6 +42,7 @@ public class GrowthRecordServiceImpl {
         return growthRecordMapper.toDto(savedRecord);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<GrowthRecordDto> getRecordsByBabyId(Long babyId) {
         return growthRecordRepository.findByBabyId(babyId)
@@ -48,6 +51,7 @@ public class GrowthRecordServiceImpl {
                 .toList();
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<GrowthRecordDto> getRecordsByUserId(Long userId) {
         return growthRecordRepository.findByUserId(userId)

@@ -1,6 +1,5 @@
 package com.jack.babycarefamilybackend.infrastructure.web.controller.record;
 
-import com.jack.babycarefamilybackend.application.usecase.record.FeedingRecordService;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.request.CreateFeedingRecordRequest;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.dto.FeedingRecordDto;
 import lombok.RequiredArgsConstructor;

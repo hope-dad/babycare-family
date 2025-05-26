@@ -1,6 +1,5 @@
 package com.jack.babycarefamilybackend.infrastructure.web.controller.record;
 
-import com.jack.babycarefamilybackend.application.usecase.record.IllnessRecordService;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.dto.IllnessRecordDto;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.request.CreateIllnessRecordRequest;
 import lombok.RequiredArgsConstructor;

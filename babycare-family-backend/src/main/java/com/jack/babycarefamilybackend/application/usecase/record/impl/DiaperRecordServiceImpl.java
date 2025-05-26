@@ -1,5 +1,6 @@
 package com.jack.babycarefamilybackend.application.usecase.record.impl;
 
+import com.jack.babycarefamilybackend.application.usecase.record.service.DiaperRecordService;
 import com.jack.babycarefamilybackend.common.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.port.repository.BabyRepository;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DiaperRecordServiceImpl {
+public class DiaperRecordServiceImpl implements DiaperRecordService {
 
     private final DiaperRecordMapper diaperRecordMapper;
 
@@ -26,11 +27,12 @@ public class DiaperRecordServiceImpl {
     private final BabyRepository babyRepository;
     private final UserRepository userRepository;
 
+    @Override
     @Transactional
     public DiaperRecordDto createDiaperRecord(CreateDiaperRecordRequest request) {
 
         Baby baby = babyRepository.findById(request.babyId())
-                .orElseThrow(() -> new ResourceNotFoundException("Baby", request.babyId(), "Baby with ID",request.babyId() + "not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Baby", request.babyId(), "Baby with ID", request.babyId() + "not found"));
 
         User user = userRepository.findById(request.userId())
                 .orElseThrow(() -> new ResourceNotFoundException("User", request.userId(), "user with Id", request.userId() + "not found"));
@@ -40,6 +42,7 @@ public class DiaperRecordServiceImpl {
         return diaperRecordMapper.toDto(savedRecord);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<DiaperRecordDto> getRecordsByBabyId(Long babyId) {
         return diaperRecordRepository.findByBabyId(babyId)
@@ -47,7 +50,7 @@ public class DiaperRecordServiceImpl {
                 .map(diaperRecordMapper::toDto)
                 .toList();
     }
-
+    @Override
     @Transactional(readOnly = true)
     public List<DiaperRecordDto> getRecordsByUserId(Long userId) {
         return diaperRecordRepository.findByUserId(userId)

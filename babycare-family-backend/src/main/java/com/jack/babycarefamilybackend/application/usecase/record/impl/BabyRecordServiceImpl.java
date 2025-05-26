@@ -1,5 +1,6 @@
 package com.jack.babycarefamilybackend.application.usecase.record.impl;
 
+import com.jack.babycarefamilybackend.application.usecase.record.service.BabyRecordService;
 import com.jack.babycarefamilybackend.common.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.domain.port.repository.BabyRecordRepository;
 import com.jack.babycarefamilybackend.domain.port.repository.UserRepository;
@@ -8,6 +9,7 @@ import com.jack.babycarefamilybackend.domain.user.User;
 import com.jack.babycarefamilybackend.infrastructure.mapper.record.BabyRecordMapper;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.dto.BabyRecordDto;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.record.request.CreateBabyRecordRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +17,14 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BabyRecordServiceImpl {
+public class BabyRecordServiceImpl implements BabyRecordService {
     private final BabyRecordMapper babyRecordMapper;
 
     private final BabyRecordRepository babyRecordRepository;
     private final UserRepository userRepository;
 
+    @Override
+    @Transactional
     public BabyRecordDto create(CreateBabyRecordRequest request) {
         User user = userRepository.findById(request.userId())
                 .orElseThrow(() -> new ResourceNotFoundException("User", request.userId(), "User with ID" + request.userId(), "Not Found"));
@@ -28,6 +32,7 @@ public class BabyRecordServiceImpl {
         return babyRecordMapper.toDto(babyRecordRepository.save(record));
     }
 
+    @Override
     public List<BabyRecordDto> findAll() {
         return babyRecordRepository.findAll()
                 .stream()

@@ -1,5 +1,6 @@
 package com.jack.babycarefamilybackend.application.usecase.record.impl;
 
+import com.jack.babycarefamilybackend.application.usecase.record.service.IllnessRecordService;
 import com.jack.babycarefamilybackend.common.exception.ResourceNotFoundException;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
 import com.jack.babycarefamilybackend.domain.port.repository.BabyRepository;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class IllnessRecordServiceImpl {
+public class IllnessRecordServiceImpl implements IllnessRecordService {
 
     private final IllnessRecordMapper illnessRecordMapper;
 
@@ -24,16 +25,18 @@ public class IllnessRecordServiceImpl {
     private final BabyRepository babyRepository;
 
 
+    @Override
     @Transactional
     public IllnessRecordDto createIllnessRecord(CreateIllnessRecordRequest request) {
         Baby baby = babyRepository.findById(request.babyId())
-                .orElseThrow(() -> new ResourceNotFoundException("Baby", request.babyId(), "Baby with ID",request.babyId() + "not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Baby", request.babyId(), "Baby with ID", request.babyId() + "not found"));
 
         IllnessRecord record = illnessRecordMapper.toEntity(request, baby);
         IllnessRecord saved = illnessRecordRepository.save(record);
         return illnessRecordMapper.toDto(saved);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<IllnessRecordDto> getByBabyId(Long babyId) {
         return illnessRecordRepository.findByBabyId(babyId)
