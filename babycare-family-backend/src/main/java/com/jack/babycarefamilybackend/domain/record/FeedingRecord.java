@@ -1,6 +1,7 @@
 package com.jack.babycarefamilybackend.domain.record;
 
 import com.jack.babycarefamilybackend.domain.baby.Baby;
+import com.jack.babycarefamilybackend.domain.record.enums.FeedingType;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -27,11 +28,11 @@ public class FeedingRecord {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    private String type;  // 모유/분유
+    private FeedingType type;  // 모유/분유
     private Double amount;  // ml
     private LocalDateTime fedAt;
 
-    public static FeedingRecord create(Baby baby, User user, String type, Double amount, LocalDateTime fedAt) {
+    public static FeedingRecord create(Baby baby, User user, FeedingType type, Double amount, LocalDateTime fedAt) {
         FeedingRecord feedingRecord = new FeedingRecord();
         feedingRecord.baby = baby;
         feedingRecord.user = user;

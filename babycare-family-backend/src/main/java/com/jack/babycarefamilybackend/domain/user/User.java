@@ -1,14 +1,17 @@
 package com.jack.babycarefamilybackend.domain.user;
 
+import com.jack.babycarefamilybackend.domain.common.BaseTimeEntity;
 import com.jack.babycarefamilybackend.domain.familygroup.FamilyGroup;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

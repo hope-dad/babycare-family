@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-23T09:41:44+0900",
+    date = "2025-05-26T13:42:45+0900",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.7 (Microsoft)"
 )
 @Component
@@ -32,7 +32,9 @@ public class FeedingRecordMapperImpl implements FeedingRecordMapper {
         babyId = feedingRecordBabyId( feedingRecord );
         userId = feedingRecordUserId( feedingRecord );
         id = feedingRecord.getId();
-        type = feedingRecord.getType();
+        if ( feedingRecord.getType() != null ) {
+            type = feedingRecord.getType().name();
+        }
         amount = feedingRecord.getAmount();
         fedAt = feedingRecord.getFedAt();
 

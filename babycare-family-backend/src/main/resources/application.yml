@@ -22,3 +22,8 @@ springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
 
+api:
+  version:
+    current: v1
+    prefix: /api
+    full-prefix: ${api.version.prefix}/${api.version.current}

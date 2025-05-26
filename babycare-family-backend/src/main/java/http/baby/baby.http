@@ -1,0 +1,100 @@
+# API 테스트 방법들
+
+## 1. Swagger UI를 통한 테스트 (가장 쉬운 방법)
+
+애플리케이션 실행 후 다음 URL에 접속:
+```
+http://localhost:4000/swagger-ui.html
+```
+
+- GUI를 통해 직접 API 호출 가능
+- 요청/응답 예시 확인 가능
+- Try it out 버튼으로 실제 테스트 수행
+
+## 2. cURL 명령어로 테스트
+
+### 아기 생성 (POST)
+```bash
+curl -X POST "http://localhost:4000/api/v1/babies" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "홍길동",
+    "birthDate": "2024-01-15",
+    "gender": "MALE",
+    "familyGroupId": 1
+  }'
+```
+
+### 아기 목록 조회 (GET)
+```bash
+curl -X GET "http://localhost:4000/api/v1/babies/family-group/1"
+```
+
+### 아기 단건 조회 (GET)
+```bash
+curl -X GET "http://localhost:4000/api/v1/babies/1"
+```
+
+### 아기 정보 수정 (PUT)
+```bash
+curl -X PUT "http://localhost:4000/api/v1/babies/1" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "홍길동",
+    "birthDate": "2024-01-15",
+    "gender": "MALE"
+  }'
+```
+
+### 아기 삭제 (DELETE)
+```bash
+curl -X DELETE "http://localhost:4000/api/v1/babies/1"
+```
+
+## 3. Postman을 통한 테스트
+
+### Collection 설정
+1. Postman에서 새 Collection 생성
+2. Base URL 변수 설정: `{{baseUrl}} = http://localhost:4000/api/v1`
+
+### 요청 예시들
+
+#### POST /babies
+- URL: `{{baseUrl}}/babies`
+- Method: POST
+- Headers: `Content-Type: application/json`
+- Body (raw JSON):
+```json
+{
+  "name": "김아기",
+  "birthDate": "2024-03-20",
+  "gender": "FEMALE",
+  "familyGroupId": 1
+}
+```
+
+#### GET /babies/family-group/{familyGroupId}
+- URL: `{{baseUrl}}/babies/family-group/1`
+- Method: GET
+
+#### GET /babies/{babyId}
+- URL: `{{baseUrl}}/babies/1`
+- Method: GET
+
+#### PUT /babies/{babyId}
+- URL: `{{baseUrl}}/babies/1`
+- Method: PUT
+- Headers: `Content-Type: application/json`
+- Body (raw JSON):
+```json
+{
+  "name": "김아기 수정",
+  "birthDate": "2024-03-20",
+  "gender": "FEMALE"
+}
+```
+
+#### DELETE /babies/{babyId}
+- URL: `{{baseUrl}}/babies/1`
+- Method: DELETE
+

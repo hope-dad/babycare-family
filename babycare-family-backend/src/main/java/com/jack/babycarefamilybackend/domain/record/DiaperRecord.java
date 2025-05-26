@@ -1,9 +1,13 @@
 package com.jack.babycarefamilybackend.domain.record;
 
 import com.jack.babycarefamilybackend.domain.baby.Baby;
+import com.jack.babycarefamilybackend.domain.record.enums.DiaperContentType;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +17,6 @@ import java.time.LocalDateTime;
 @Table(name = "diaper_record")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class DiaperRecord {
-
 
 
     @Id
@@ -26,14 +29,14 @@ public class DiaperRecord {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    private String type;  // 소변/대변
+    private DiaperContentType type;  // 소변/대변
     private String note;
     private LocalDateTime changedAt;
 
     public static DiaperRecord create(
             Baby baby,
             User user,
-            String type,
+            DiaperContentType type,
             String note,
             LocalDateTime changedAt
     ) {

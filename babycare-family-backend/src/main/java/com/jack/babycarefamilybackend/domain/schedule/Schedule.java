@@ -1,6 +1,7 @@
 package com.jack.babycarefamilybackend.domain.schedule;
 
 import com.jack.babycarefamilybackend.domain.baby.Baby;
+import com.jack.babycarefamilybackend.domain.common.BaseTimeEntity;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @Table(name = "schedule")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Schedule {
+public class Schedule extends BaseTimeEntity {
 
 
     @Id
@@ -34,7 +35,6 @@ public class Schedule {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String description;
-    private LocalDateTime createdAt;
 
 
     public static Schedule create(Baby baby, User user, String title, LocalDateTime startTime, LocalDateTime endTime, String description) {
@@ -45,7 +45,6 @@ public class Schedule {
         schedule.setStartTime(startTime);
         schedule.setEndTime(endTime);
         schedule.setDescription(description);
-        schedule.setCreatedAt(LocalDateTime.now());
         return schedule;
     }
 }

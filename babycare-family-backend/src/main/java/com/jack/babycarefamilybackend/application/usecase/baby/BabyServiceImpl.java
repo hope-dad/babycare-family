@@ -1,11 +1,12 @@
 package com.jack.babycarefamilybackend.application.usecase.baby;
 
 import com.jack.babycarefamilybackend.common.exception.ResourceNotFoundException;
-import com.jack.babycarefamilybackend.infrastructure.mapper.baby.BabyMapper;
 import com.jack.babycarefamilybackend.domain.baby.Baby;
+import com.jack.babycarefamilybackend.domain.baby.Gender;
 import com.jack.babycarefamilybackend.domain.familygroup.FamilyGroup;
 import com.jack.babycarefamilybackend.domain.port.repository.BabyRepository;
 import com.jack.babycarefamilybackend.domain.port.repository.FamilyGroupRepository;
+import com.jack.babycarefamilybackend.infrastructure.mapper.baby.BabyMapper;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.baby.BabyDto;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.baby.CreateBabyRequest;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.baby.UpdateBabyRequest;
@@ -54,14 +55,28 @@ public class BabyServiceImpl implements BabyService {
     @Override
     @Transactional
     public BabyDto updateBaby(Long babyId, UpdateBabyRequest request) {
-
         Baby existingBaby = babyRepository.findById(babyId)
                 .orElseThrow(() -> new ResourceNotFoundException("Baby", babyId, "Baby not found"));
 
         FamilyGroup familyGroup = familyGroupRepository.findById(request.familyGroupId())
                 .orElseThrow(() -> new ResourceNotFoundException("FamilyGroup", request.familyGroupId(), "Family Group not found"));
 
-        existingBaby.updateBabyInfo(request.name(), request.birthDate(), request.gender(), familyGroup);
+        // Gender 문자열 → Enum 안전 변환
+        Gender gender = Gender.from(request.gender());
+
+        // 엔티티 메서드를 통해 업데이트 진행 (Setter보다 명확한 메서드 권장)
+        existingBaby.updateBabyInfo(
+                request.name(),
+                request.birthDate(),
+                gender,
+                familyGroup,
+                request.photoUrl(),
+                request.bloodType(),
+                request.characteristics(),
+                request.allergies(),
+                request.prenatalName()
+        );
+
         Baby updatedBaby = babyRepository.save(existingBaby);
         return babyMapper.toDto(updatedBaby);
     }
@@ -69,10 +84,10 @@ public class BabyServiceImpl implements BabyService {
     @Override
     @Transactional
     public void deleteBaby(Long babyId) {
-        if (!babyRepository.existsById(babyId)) {
-            throw new ResourceNotFoundException("Baby", babyId, "Baby not found");
-        }
-        babyRepository.deleteById(babyId);
+        Baby baby = babyRepository.findById(babyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Baby", babyId, "Baby not found"));
+
+        baby.softDelete();
     }
 
     @Override
@@ -80,4 +95,7 @@ public class BabyServiceImpl implements BabyService {
     public boolean existsById(Long babyId) {
         return babyRepository.existsById(babyId);
     }
+
+
+
 }

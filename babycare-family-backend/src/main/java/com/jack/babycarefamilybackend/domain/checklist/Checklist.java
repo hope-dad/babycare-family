@@ -1,9 +1,13 @@
 package com.jack.babycarefamilybackend.domain.checklist;
 
 import com.jack.babycarefamilybackend.domain.baby.Baby;
+import com.jack.babycarefamilybackend.domain.common.BaseTimeEntity;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,7 +17,7 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name = "checklist")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Checklist {
+public class Checklist extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +33,6 @@ public class Checklist {
 
     private String content;
     private boolean completed;
-    private LocalDateTime createdAt;
     private LocalDateTime completedAt;
 
     private LocalDate dueDate;
@@ -46,7 +49,6 @@ public class Checklist {
         checklist.user = user;
         checklist.content = content;
         checklist.completed = false;
-        checklist.createdAt = LocalDateTime.now();
         checklist.dueDate = dueDate;
         checklist.priority = priority;
         checklist.category = category;
@@ -55,18 +57,24 @@ public class Checklist {
     }
 
     public void markIncomplete() {
-        if (this.completed) { // 이미 완료 상태일 때만 처리
+        if (this.completed) {
             this.completed = false;
-            this.completedAt = null; // 완료 시각 초기화
+            this.completedAt = null;
         }
     }
-    // 비즈니스 메서드
+
     public void complete() {
+        if (this.completed) {
+            return;
+        }
         this.completed = true;
         this.completedAt = LocalDateTime.now();
     }
 
-    public void updateContent(String content) {
+    public void updateContent(@NotBlank String content) { // 파라미터 유효성 검사
+        if (content == null || content.trim().isEmpty()) {
+            throw new IllegalArgumentException("체크리스트 내용은 필수입니다.");
+        }
         this.content = content;
     }
 

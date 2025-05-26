@@ -1,11 +1,14 @@
 package com.jack.babycarefamilybackend.domain.commant;
 
+import com.jack.babycarefamilybackend.domain.common.BaseTimeEntity;
 import com.jack.babycarefamilybackend.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -13,25 +16,19 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name = "comment")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Comment {
-
+public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String content;
-
     private String recordType;
-
     private Long recordId;
-
     private Long babyId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
-    private LocalDateTime createdAt;
 
     public Comment(String content, String recordType, Long recordId, Long babyId, User user, LocalDateTime createdAt) {
         this.content = content;
@@ -39,7 +36,6 @@ public class Comment {
         this.recordId = recordId;
         this.babyId = babyId;
         this.user = user;
-        this.createdAt = createdAt;
     }
     public static Comment create(String content, String recordType, Long recordId, Long babyId, User user) {
         Comment comment = new Comment();
@@ -48,7 +44,6 @@ public class Comment {
         comment.recordId = recordId;
         comment.babyId = babyId;
         comment.user = user;
-        comment.createdAt = LocalDateTime.now();
         return comment;
     }
 }

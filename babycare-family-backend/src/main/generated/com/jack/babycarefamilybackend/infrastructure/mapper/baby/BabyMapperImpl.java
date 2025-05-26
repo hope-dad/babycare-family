@@ -1,6 +1,7 @@
 package com.jack.babycarefamilybackend.infrastructure.mapper.baby;
 
 import com.jack.babycarefamilybackend.domain.baby.Baby;
+import com.jack.babycarefamilybackend.domain.baby.Gender;
 import com.jack.babycarefamilybackend.domain.familygroup.FamilyGroup;
 import com.jack.babycarefamilybackend.infrastructure.web.dto.baby.BabyDto;
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-23T09:41:44+0900",
+    date = "2025-05-26T13:42:45+0900",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.7 (Microsoft)"
 )
 @Component
@@ -25,7 +26,7 @@ public class BabyMapperImpl implements BabyMapper {
         Long id = null;
         String name = null;
         LocalDate birthDate = null;
-        String gender = null;
+        Gender gender = null;
         String photoUrl = null;
         String bloodType = null;
         String characteristics = null;
