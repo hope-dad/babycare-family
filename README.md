@@ -96,41 +96,6 @@ com.jack.babycarefamilybackend
 
 ---
 
-## 🚀 실행 방법
-
-1. 프로젝트 클론
-   ```bash
-   git clone https://github.com/your-repo/family-care-backend.git
-   cd family-care-backend
-   ```
-
-2. 환경 변수 설정
-   - `application.yml` 또는 `.env` 파일에 다음 항목 설정
-     ```yaml
-     spring:
-       datasource:
-         url: jdbc:mysql://localhost:3306/yourdb
-         username: youruser
-         password: yourpass
-     jwt:
-       secret: your-secret-key
-     cloud:
-       aws:
-         s3:
-           bucket: your-bucket
-     fcm:
-       key: your-fcm-key.json
-     ```
-
-3. 애플리케이션 실행
-   ```bash
-   ./gradlew bootRun
-   ```
-
-4. Swagger API 문서 접속  
-   [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
-
----
 
 ## 🧪 테스트
 
